@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncatewords: 50 }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+  <!-- Mobile hamburger -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">&#9776;</button>
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="{{ '/' | relative_url }}">moriel@security:~$<span class="cursor">_</span></a>
+        <p>Security Research &amp; Disclosures</p>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off">
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="{{ '/' | relative_url }}">/home</a>
+        <a href="{{ '/about' | relative_url }}">/about</a>
+        <a href="https://github.com/morielharush" target="_blank">/github</a>
+      </nav>
+
+      <div class="sidebar-section-title">Advisories</div>
+      <ul class="sidebar-posts" id="sidebar-post-list">
+        {% for post in site.posts %}
+        <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }}">
+          <a href="{{ post.url | relative_url }}">
+            <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><br>
+            {{ post.title }}
+            {% if post.severity %}
+              {% if post.severity == "Critical" %}
+                <span class="badge badge-critical">{{ post.severity }}</span>
+              {% elsif post.severity == "High" %}
+                <span class="badge badge-high">{{ post.severity }}</span>
+              {% elsif post.severity == "Medium" %}
+                <span class="badge badge-medium">{{ post.severity }}</span>
+              {% else %}
+                <span class="badge badge-low">{{ post.severity }}</span>
+              {% endif %}
+            {% endif %}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="no-results" id="no-results">No posts found.</p>
+
+      <div class="sidebar-footer">
+        <p>&copy; {{ 'now' | date: "%Y" }} Moriel Harush</p>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="content">
+      <main>
+        {{ content }}
+      </main>
+
+      <footer>
+        <p>Built with <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+  </div>
+
+  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+</body>
+</html>
