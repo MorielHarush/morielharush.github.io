@@ -1,0 +1,23 @@
+title: moriel@security:~$
+description: Security Research & Vulnerability Disclosures
+url: "https://morielharush.github.io"
+baseurl: ""
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

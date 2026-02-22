@@ -1,0 +1,35 @@
+---
+layout: default
+title: Home
+---
+
+<h2 style="color: var(--green); margin-bottom: 0.3rem;">$ ls ./advisories</h2>
+<p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.85rem;">Security research, vulnerability disclosures, and CVE writeups.</p>
+
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li class="post-item">
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <div class="post-meta">
+      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+      {% if post.cve %} &middot; <span>{{ post.cve }}</span>{% endif %}
+      {% if post.severity %}
+        &middot;
+        {% if post.severity == "Critical" %}
+          <span class="badge badge-critical">{{ post.severity }}</span>
+        {% elsif post.severity == "High" %}
+          <span class="badge badge-high">{{ post.severity }}</span>
+        {% elsif post.severity == "Medium" %}
+          <span class="badge badge-medium">{{ post.severity }}</span>
+        {% else %}
+          <span class="badge badge-low">{{ post.severity }}</span>
+        {% endif %}
+      {% endif %}
+      {% if post.affected %} &middot; <span>{{ post.affected }}</span>{% endif %}
+    </div>
+    {% if post.excerpt %}
+      <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>

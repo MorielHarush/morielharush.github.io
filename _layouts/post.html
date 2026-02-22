@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<article>
+  <div class="post-header">
+    <h1>{{ page.title }}</h1>
+    <div class="post-info">
+      <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+      {% if page.cve %}<span>{{ page.cve }}</span>{% endif %}
+      {% if page.severity %}
+        {% if page.severity == "Critical" %}
+          <span class="badge badge-critical">{{ page.severity }}</span>
+        {% elsif page.severity == "High" %}
+          <span class="badge badge-high">{{ page.severity }}</span>
+        {% elsif page.severity == "Medium" %}
+          <span class="badge badge-medium">{{ page.severity }}</span>
+        {% else %}
+          <span class="badge badge-low">{{ page.severity }}</span>
+        {% endif %}
+      {% endif %}
+      {% if page.cvss %}<span>CVSS: {{ page.cvss }}</span>{% endif %}
+      {% if page.affected %}<span>Affected: {{ page.affected }}</span>{% endif %}
+    </div>
+  </div>
+
+  {{ content }}
+</article>
