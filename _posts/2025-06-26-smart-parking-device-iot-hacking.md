@@ -5,6 +5,7 @@ date: 2025-06-26
 category: research
 tags: ["IoT", "hacking", "RCE", "IDOR", "OTP bypass"]
 ---
+<img width="720" height="720" alt="image" src="https://github.com/user-attachments/assets/578859d5-fae0-4f1d-8fbe-ab4bc6193c01" />
 
 When I moved into my new apartment, I was excited. A fresh start, a great location, and — best of all — a private parking lot.
 
@@ -44,17 +45,17 @@ But instead of giving up, I decided to intercept the server's response and see h
 
 Using Burp Suite's Match & Replace feature, I modified the response body sent from the server. Originally, the server returned a **350 response** — indicating that the number wasn't valid or authorized.
 
-![Error response from server](/assets/images/parking-error-response.svg)
+<img width="720" height="279" alt="image" src="https://github.com/user-attachments/assets/8bcee588-e061-4b41-b71a-0f1e29f2d62c" />
 *The server returning a 350 status — number not authorized.*
 
 I changed it to a **200**.
 
-![Modified response to 200](/assets/images/parking-response-modified.svg)
+<img width="720" height="382" alt="image" src="https://github.com/user-attachments/assets/2775abfe-f17e-4121-8dab-dbaf20e94111" />
 *Forging the server response from 350 to 200 using Burp Suite.*
 
 And it worked.
 
-![Successful OTP bypass](/assets/images/parking-otp-bypass-success.svg)
+<img width="720" height="251" alt="image" src="https://github.com/user-attachments/assets/6fda8955-32d5-4324-a5d7-ca84fb815068" />
 *The app accepted the forged response and let me proceed.*
 
 The app happily accepted the fake success response and let me continue the onboarding process. In doing so, I **bypassed the OTP mechanism entirely**.
@@ -79,12 +80,12 @@ I began manipulating the `language` value with various payloads, and the server 
 
 For those unfamiliar, Burp Collaborator is a powerful tool that security researchers use to detect Out-of-Band (OOB) interactions. It helps uncover vulnerabilities where the server reaches out to an external domain — a sign that it might be evaluating or executing user-supplied input.
 
-![whoami command via Collaborator](/assets/images/parking-rce-whoami.svg)
+<img width="720" height="215" alt="image" src="https://github.com/user-attachments/assets/2ff565cd-f1b9-41e8-9dd2-29f9ed289123" />
 *Injecting a command payload through the "language" parameter.*
 
 And sure enough — the Collaborator client received a DNS query from the backend server.
 
-![Server response confirming RCE](/assets/images/parking-rce-server-response.svg)
+<img width="720" height="158" alt="image" src="https://github.com/user-attachments/assets/1fe0f21a-52e5-4ab4-be9b-4551ec15f1b4" />
 *DNS callback received from a host labeled "serverpilot" — confirming code execution.*
 
 In fact, the lookup came from a hostname labeled `serverpilot`, which strongly indicated that the backend system executed my payload, or at the very least processed it in a dangerous way.
@@ -110,7 +111,7 @@ To my surprise, the server didn't reject the request outright. Instead, it retur
 
 That's when I realized: if I brute-force different `userId`'s and ignore the activation code check (which clearly wasn't enforced server-side), I could enumerate valid users and extract sensitive gate access data.
 
-![Harvesting phone numbers via IDOR](/assets/images/parking-idor-phone-harvest.svg)
+<img width="720" height="212" alt="image" src="https://github.com/user-attachments/assets/9f0150ee-cede-478f-98db-7ee5b63ec822" />
 *Enumerating user IDs to extract authorized phone numbers and gate metadata.*
 
 ## From Coordinates to Physical Location
@@ -126,7 +127,7 @@ Using those coordinates, I built a simple Python script to plot and estimate the
 
 After iterating through enough `userId` values, I eventually found a match near my building.
 
-![Gate located on map](/assets/images/parking-gate-map-location.svg)
+<img width="720" height="212" alt="image" src="https://github.com/user-attachments/assets/2e9429d6-dcd0-492c-a32e-ea108a8a57d8" />
 *Bingo. Plotting the GPS coordinates revealed my gate's exact location.*
 
 And now, I had the phone number that the system would recognize as authorized to open it.
