@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   var input = document.getElementById('search-input');
-  var posts = document.querySelectorAll('#sidebar-post-list li');
+  var posts = document.querySelectorAll('.sidebar-filterable li');
   var noResults = document.getElementById('no-results');
 
   if (!input) return;

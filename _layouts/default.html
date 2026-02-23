@@ -32,26 +32,53 @@
         <a href="https://github.com/morielharush" target="_blank">/github</a>
       </nav>
 
-      <div class="sidebar-section-title">Advisories</div>
-      <ul class="sidebar-posts" id="sidebar-post-list">
+      <div class="sidebar-section-title">Research</div>
+      <ul class="sidebar-posts sidebar-filterable" id="sidebar-research-list">
         {% for post in site.posts %}
-        <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }}">
-          <a href="{{ post.url | relative_url }}">
-            <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><br>
-            {{ post.title }}
-            {% if post.severity %}
-              {% if post.severity == "Critical" %}
-                <span class="badge badge-critical">{{ post.severity }}</span>
-              {% elsif post.severity == "High" %}
-                <span class="badge badge-high">{{ post.severity }}</span>
-              {% elsif post.severity == "Medium" %}
-                <span class="badge badge-medium">{{ post.severity }}</span>
-              {% else %}
-                <span class="badge badge-low">{{ post.severity }}</span>
+          {% if post.category == "research" %}
+          <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }} {{ post.tags | join: ' ' | downcase }}">
+            <a href="{{ post.url | relative_url }}">
+              <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><br>
+              {{ post.title }}
+              {% if post.severity %}
+                {% if post.severity == "Critical" %}
+                  <span class="badge badge-critical">{{ post.severity }}</span>
+                {% elsif post.severity == "High" %}
+                  <span class="badge badge-high">{{ post.severity }}</span>
+                {% elsif post.severity == "Medium" %}
+                  <span class="badge badge-medium">{{ post.severity }}</span>
+                {% else %}
+                  <span class="badge badge-low">{{ post.severity }}</span>
+                {% endif %}
               {% endif %}
-            {% endif %}
-          </a>
-        </li>
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="sidebar-section-title">Advisories</div>
+      <ul class="sidebar-posts sidebar-filterable" id="sidebar-post-list">
+        {% for post in site.posts %}
+          {% unless post.category == "research" %}
+          <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }}">
+            <a href="{{ post.url | relative_url }}">
+              <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span><br>
+              {{ post.title }}
+              {% if post.severity %}
+                {% if post.severity == "Critical" %}
+                  <span class="badge badge-critical">{{ post.severity }}</span>
+                {% elsif post.severity == "High" %}
+                  <span class="badge badge-high">{{ post.severity }}</span>
+                {% elsif post.severity == "Medium" %}
+                  <span class="badge badge-medium">{{ post.severity }}</span>
+                {% else %}
+                  <span class="badge badge-low">{{ post.severity }}</span>
+                {% endif %}
+              {% endif %}
+            </a>
+          </li>
+          {% endunless %}
         {% endfor %}
       </ul>
       <p class="no-results" id="no-results">No posts found.</p>
