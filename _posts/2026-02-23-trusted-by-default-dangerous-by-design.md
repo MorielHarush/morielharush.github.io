@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Trusted by Default, Dangerous by Design: How Example Code and Dev Tools Become Attack Vectors"
+title: "Securing the Core, Ignoring the Door: The Repo Trust Trap"
 date: 2026-02-23
 category: research
 tags: ["command-injection", "CI/CD", "supply-chain", "CWE-78", "developer-tools"]
