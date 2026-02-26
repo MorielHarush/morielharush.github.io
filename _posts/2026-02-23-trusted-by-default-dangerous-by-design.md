@@ -189,3 +189,6 @@ An attacker doesn't need to compromise a package registry or poison a dependency
 - [CWE-78: Improper Neutralization of Special Elements used in an OS Command](https://cwe.mitre.org/data/definitions/78.html)
 - [Envoy Proxy — CNCF Graduated Project](https://www.envoyproxy.io/)
 - [CASL — Authorization Library for JavaScript](https://casl.js.org/)
+- [PR for Envoy](https://github.com/envoyproxy/envoy/pull/43638)
+- [PR for CASL](https://github.com/stalniy/casl/pull/1158)
+- [PR for CASL](https://github.com/stalniy/casl/pull/1160/changes)
