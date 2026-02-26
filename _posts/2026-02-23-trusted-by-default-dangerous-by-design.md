@@ -6,11 +6,7 @@ category: research
 tags: ["command-injection", "CI/CD", "supply-chain", "CWE-78", "developer-tools"]
 ---
 
-<!-- ============================================================ -->
-<!-- TL;DR -->
-<!-- ============================================================ -->
-
-> **TL;DR** — I found OS Command Injection (CWE-78) in the *developer tooling* of two widely-used open-source projects — Envoy (CNCF graduated, powers Istio) and CASL (popular JS authorization library). Neither vulnerability was in the core product. Both lived in scripts and examples that developers copy into their own CI/CD pipelines without a second thought. A single malicious pull request — no human approval required — was enough to achieve arbitrary code execution on a CI runner with access to deployment secrets.
+> **TL;DR** I found OS Command Injection (CWE-78) in the *developer tooling* of two widely-used open-source projects: Envoy (CNCF graduated, powers Istio) and CASL (popular JS authorization library). Neither vulnerability was in the core product. Both lived in scripts and examples that developers copy into their own CI/CD pipelines without a second thought. A single malicious pull request, no human approval required, was enough to get arbitrary code execution on a CI runner with access to deployment secrets.
 
 ---
 
@@ -18,9 +14,9 @@ There's an unwritten rule in software development: **if it's in the repo, it's p
 
 Except, often, they haven't.
 
-During recent research, I found OS Command Injection vulnerabilities in the **developer tooling** of two separate open-source projects — not in the products themselves, but in the scripts and examples that ship alongside them. The kind of code that developers copy, adapt, and run in their own pipelines without a second thought.
+During recent research, I found OS Command Injection vulnerabilities in the **developer tooling** of two separate open-source projects. Not in the products themselves, but in the scripts and examples that ship alongside them. The kind of code that developers copy, adapt, and run in their own pipelines without a second thought.
 
-This post is about that blind spot — and why it might be the most underrated attack surface in the modern software supply chain.
+This post is about that blind spot, and why it might be the most underrated attack surface in the modern software supply chain.
 
 ---
 
@@ -28,29 +24,23 @@ This post is about that blind spot — and why it might be the most underrated a
 
 When a developer integrates a new library, the first thing they do is look at the examples. They check the `/tools` directory. They read the README and follow the setup scripts.
 
-This code occupies a unique trust zone:
+This code occupies a unique trust zone. It's **inside the official repository**, so it inherits the project's reputation. It's **not the core product**, so it rarely gets the same security scrutiny. And it's **meant to be copied and adapted**, so vulnerabilities in it propagate to every downstream user.
 
-- It's **inside the official repository**, so it inherits the project's reputation.
-- It's **not the core product**, so it rarely gets the same security scrutiny.
-- It's **meant to be copied and adapted**, so vulnerabilities in it propagate to every downstream user.
+The result is a category of code that is simultaneously the most trusted and the least audited. And when that code interacts with the shell (which developer tools frequently do) the consequences can be severe.
 
-The result is a category of code that is simultaneously the most trusted and the least audited. And when that code interacts with the shell — which developer tools frequently do — the consequences can be severe.
-
-> Think of it this way: we've built elaborate gates around the front door (dependency scanning, SBOM, signed packages) while leaving the side door wide open (tool scripts, CI helpers, example code).
+We've basically built elaborate gates around the front door with dependency scanning, SBOMs, signed packages... while leaving the side door wide open with tool scripts, CI helpers, and example code.
 
 ---
 
-## Case Study 1: Envoy — CI Formatting Tool to Root Shell
+## Case Study 1: Envoy, CI Formatting Tool to Root Shell
 
-[Envoy](https://github.com/envoyproxy/envoy) is one of the most widely deployed service proxies in the cloud-native ecosystem. It powers the data plane for Istio, is a CNCF graduated project, and is trusted by organizations handling massive-scale production traffic.
+[Envoy](https://github.com/envoyproxy/envoy) is one of the most widely deployed service proxies in the cloud-native ecosystem. It powers the data plane for Istio, is a CNCF graduated project, and is trusted by organizations handling massive-scale production traffic. 25k+ GitHub stars. Used by Google, Lyft, IBM, Salesforce. Any CI compromise here ripples far.
 
-**Blast radius:** Envoy has 25k+ GitHub stars, is a core building block of service mesh infrastructure at companies like Google, Lyft, IBM, and Salesforce, and processes millions of requests per second across the industry. Any CI compromise here ripples far.
-
-The vulnerability I found wasn't in Envoy's proxy code. It was in `tools/code_format/check_format.py` — a Python script used in CI to enforce code formatting standards on incoming pull requests.
+The vulnerability I found wasn't in Envoy's proxy code. It was in `tools/code_format/check_format.py`, a Python script used in CI to enforce code formatting standards on incoming pull requests.
 
 ### The Vulnerable Pattern
 
-The script constructs shell commands by directly interpolating file paths into format strings, then executes them via `os.system()` and `subprocess.check_output(shell=True)` — **without any sanitization**.
+The script constructs shell commands by directly interpolating file paths into format strings, then executes them via `os.system()` and `subprocess.check_output(shell=True)` **without any sanitization**.
 
 ```python
 # Line 917-918 — clang_format()
@@ -64,9 +54,9 @@ command = (
 output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT).strip()
 ```
 
-The `file_path` variable flows directly from the list of changed files in a pull request. There are **six distinct injection points** across the script — in `fix_build_path()`, `check_build_path()`, `clang_format()`, and the shared `execute_command()` sink.
+The `file_path` variable flows directly from the list of changed files in a pull request. There are **six distinct injection points** across the script in `fix_build_path()`, `check_build_path()`, `clang_format()`, and the shared `execute_command()` sink.
 
-The `normalize_path()` function only adjusts path prefixes (`./`) — it performs zero sanitization of shell metacharacters.
+The `normalize_path()` function only adjusts path prefixes (`./`). It performs zero sanitization of shell metacharacters.
 
 ### The Attack Chain
 
@@ -90,10 +80,10 @@ The exploitation path is straightforward:
 
 This isn't theoretical. On a typical GitHub Actions CI runner, successful exploitation gives an attacker:
 
-- **`GITHUB_TOKEN`** — push access to the repository, ability to create releases, modify workflows.
-- **Deployment secrets** — AWS keys, Docker registry credentials, signing keys — anything stored in GitHub Secrets and exposed to the workflow.
-- **Lateral movement** — access to internal networks if the runner is self-hosted.
-- **Supply chain poisoning** — the ability to inject malicious code into build artifacts, container images, or release binaries that ship to every Envoy user.
+- **`GITHUB_TOKEN`**: push access to the repository, ability to create releases, modify workflows.
+- **Deployment secrets**: AWS keys, Docker registry credentials, signing keys, anything stored in GitHub Secrets and exposed to the workflow.
+- **Lateral movement**: access to internal networks if the runner is self-hosted.
+- **Supply chain poisoning**: the ability to inject malicious code into build artifacts, container images, or release binaries that ship to every Envoy user.
 
 A single pull request. Root on CI. Keys to the kingdom.
 
@@ -109,11 +99,11 @@ Root-level execution on the CI runner. From a filename.
 
 ---
 
-## Case Study 2: CASL — Example Tool to Command Injection
+## Case Study 2: CASL, Example Tool to Command Injection
 
 [CASL](https://github.com/stalniy/casl) is a popular JavaScript authorization library used to manage permissions in web applications. It's well-regarded and widely adopted.
 
-Again, the vulnerability wasn't in CASL's core authorization logic. It was in a **tool script** — `tools/sitemap.xml.js` — a sitemap generator that ships with the project as a development utility.
+Again, the vulnerability wasn't in CASL's core authorization logic. It was in a **tool script**, `tools/sitemap.xml.js`, a sitemap generator that ships with the project as a development utility.
 
 ### The Vulnerable Pattern
 
@@ -128,7 +118,7 @@ async function getLastModified(path) {
 }
 ```
 
-Since `exec` spawns a full shell, any shell metacharacters in `path` — such as `;`, `&`, `|`, or `$()` — are interpreted. And the `path` values come from configuration files like `routes.yml`, which can be modified by contributors or influenced in CI/CD environments.
+Since `exec` spawns a full shell, any shell metacharacters in `path` (like `;`, `&`, `|`, or `$()`) are interpreted. And the `path` values come from configuration files like `routes.yml`, which can be modified by contributors or influenced in CI/CD environments.
 
 ### The Attack
 
@@ -146,7 +136,7 @@ The `git` command runs normally, then `whoami` executes, and `#` comments out th
 
 ### Why This Matters
 
-A developer integrating CASL who needs a sitemap generator might look at the project's tools directory and think: *"They already have one — let me just use this."* They copy the script, maybe adapt it slightly, wire it into their build pipeline, and move on.
+A developer integrating CASL who needs a sitemap generator might look at the project's tools directory and think: *"They already have one, let me just use this."* They copy the script, maybe adapt it slightly, wire it into their build pipeline, and move on.
 
 They've just imported a command injection vulnerability into their CI/CD infrastructure.
 
@@ -172,15 +162,15 @@ untrusted_input + string_interpolation + shell_execution = command_injection
 
 This isn't a novel attack technique. OS Command Injection is well-understood. It has its own CWE entry (CWE-78), it's in the OWASP Top 10, and every security course covers it in week one.
 
-And yet it keeps showing up — specifically in developer tools, because **nobody audits them**.
+And yet it keeps showing up. Specifically in developer tools. Because **nobody audits them**.
 
 ---
 
 ## The Broader Implication: Supply Chain Through the Side Door
 
-The security community has invested heavily in securing dependencies — SBOMs, signed packages, dependency scanning, reproducible builds. But developer tools and example code represent a parallel supply chain that largely goes unexamined.
+The security community has invested heavily in securing dependencies with SBOMs, signed packages, dependency scanning, reproducible builds. But developer tools and example code represent a parallel supply chain that largely goes unexamined.
 
-Consider:
+Think about it:
 
 - **CI scripts** run with elevated privileges and access to deployment secrets.
 - **Example code** is copied and pasted into production systems.
@@ -190,13 +180,17 @@ An attacker doesn't need to compromise a package registry or poison a dependency
 
 ### The Attack Surface Nobody's Mapping
 
-If you think about it, this is a dream scenario for an attacker:
+If you're an attacker, this is basically the dream scenario:
 
-1. **Low barrier to entry** — just open a PR. No need to compromise credentials, social-engineer maintainers, or hijack packages.
-2. **High privilege execution** — CI runners typically have access to secrets, signing keys, and deployment credentials.
-3. **Low detection probability** — security scanners focus on `src/`, not `tools/` or `examples/`. Code review on PRs rarely scrutinizes filenames.
-4. **Plausible deniability** — a weird filename could be dismissed as an accident or encoding issue.
-5. **Massive blast radius** — one compromised CI pipeline can taint every artifact the project produces.
+**Low barrier to entry.** Just open a PR. No need to compromise credentials, social-engineer maintainers, or hijack packages.
+
+**High privilege execution.** CI runners typically have access to secrets, signing keys, and deployment credentials.
+
+**Low detection probability.** Security scanners focus on `src/`, not `tools/` or `examples/`. Code review on PRs rarely scrutinizes filenames.
+
+**Plausible deniability.** A weird filename could be dismissed as an accident or encoding issue.
+
+**Massive blast radius.** One compromised CI pipeline can taint every artifact the project produces.
 
 This is the software supply chain equivalent of walking in through the service entrance while everyone's guarding the lobby.
 
@@ -216,7 +210,7 @@ grep -rn --include="*.py" -E "(os\.system|subprocess\.(call|run|Popen|check_outp
 grep -rn --include="*.js" --include="*.ts" -E "child_process\.(exec|execSync)\(" tools/ examples/ scripts/ ci/ .github/ 2>/dev/null
 ```
 
-If either returns results where user-controlled data (filenames, paths, config values, environment variables) flows into those calls — you have a problem.
+If either returns results where user-controlled data (filenames, paths, config values, environment variables) flows into those calls, you have a problem.
 
 ---
 
@@ -230,15 +224,15 @@ If either returns results where user-controlled data (filenames, paths, config v
 
 **For developers consuming libraries:**
 - Do not blindly copy tool/example code into your projects or pipelines.
-- Audit any script that runs in CI — especially if it processes filenames, paths, or user-influenced configuration.
+- Audit any script that runs in CI, especially if it processes filenames, paths, or user-influenced configuration.
 - Grep for `os.system`, `shell=True`, `child_process.exec`, and similar patterns in any code you import.
-- Treat anything in `/tools` or `/examples` as **untrusted third-party code** — because in terms of audit coverage, that's exactly what it is.
+- Treat anything in `/tools` or `/examples` as **untrusted third-party code**, because in terms of audit coverage, that's exactly what it is.
 
 **For security teams:**
 - Expand SAST rules to cover tool and example directories, not just `src/`.
 - Treat CI pipeline code as security-critical infrastructure.
 - Include developer tooling in your threat model.
-- When evaluating open-source projects, audit the full repo — not just the package that gets installed.
+- When evaluating open-source projects, audit the full repo, not just the package that gets installed.
 
 ---
 
@@ -246,7 +240,7 @@ If either returns results where user-controlled data (filenames, paths, config v
 
 **The most dangerous code is the code nobody reviews.** Core libraries get audited. Tools and examples get a pass. Attackers know this.
 
-**Developer tools are a supply chain vector.** When a CI script runs `os.system()` on pull request data, it's as dangerous as any RCE in production — maybe more, because it has access to secrets and deployment credentials.
+**Developer tools are a supply chain vector.** When a CI script runs `os.system()` on pull request data, it's as dangerous as any RCE in production. Maybe more so, because it has access to secrets and deployment credentials.
 
 **Trust is not transitive.** Just because a project is well-maintained doesn't mean every file in its repository has been security-reviewed. A CNCF-graduated project and a popular npm package both had the same textbook vulnerability hiding in their tooling.
 
@@ -256,15 +250,15 @@ If either returns results where user-controlled data (filenames, paths, config v
 
 ---
 
-*If you found this research useful, consider auditing the tool directories of the open-source projects you depend on. The next CWE-78 might be hiding in a script that's been in the repo since day one — trusted by everyone, reviewed by no one.*
+*If you found this research useful, consider auditing the tool directories of the open-source projects you depend on. The next CWE-78 might be hiding in a script that's been in the repo since day one, trusted by everyone, reviewed by no one.*
 
 ---
 
 ## References
 
 - [CWE-78: Improper Neutralization of Special Elements used in an OS Command](https://cwe.mitre.org/data/definitions/78.html)
-- [Envoy Proxy — CNCF Graduated Project](https://www.envoyproxy.io/)
-- [CASL — Authorization Library for JavaScript](https://casl.js.org/)
+- [Envoy Proxy, CNCF Graduated Project](https://www.envoyproxy.io/)
+- [CASL, Authorization Library for JavaScript](https://casl.js.org/)
 - [PR for Envoy](https://github.com/envoyproxy/envoy/pull/43638)
 - [PR for CASL](https://github.com/stalniy/casl/pull/1158)
 - [PR for CASL](https://github.com/stalniy/casl/pull/1160/changes)
