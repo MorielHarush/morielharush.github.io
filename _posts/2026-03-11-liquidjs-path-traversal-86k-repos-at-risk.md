@@ -65,7 +65,7 @@ const engine = new Liquid({
   dynamicPartials: true
 });
 
-engine.parseAndRender('{% include page %}', { page: '../../../etc/passwd' })
+engine.parseAndRender('{% raw %}{% include page %}{% endraw %}', { page: '../../../etc/passwd' })
   .then(output => console.log(output.slice(0, 500)));
 ```
 
