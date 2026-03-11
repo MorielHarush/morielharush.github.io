@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Liquid Leak — How a Template Engine Exposed 86,000 Repositories to Arbitrary File Read"
+title: "LiquidOverflow — How a Template Engine Exposed 86,000 Repositories to Arbitrary File Read"
 date: 2026-03-11
 cve: "CVE-2026-30952"
 severity: "High"
