@@ -69,11 +69,12 @@ engine.parseAndRender('{% raw %}{% include page %}{% endraw %}', { page: '../../
   .then(output => console.log(output.slice(0, 500)));
 ```
 
+<img width="829" height="349" alt="image" src="https://github.com/user-attachments/assets/f0dc366a-0ece-441f-a160-b309cda53031" />
+
 That's it. Despite the root directory being explicitly locked to `/tmp`, the engine happily traverses up to `/etc/passwd` and dumps its contents. The `dynamicPartials` option — commonly enabled for flexible template systems — allows the `page` variable to be attacker-controlled, turning a template render call into an arbitrary file read primitive.
 
 In real-world scenarios, this means:
 
-- **Server-side template injection (SSTI)** in any application that renders user-influenced templates
 - **Reading secrets and credentials** — environment files, API keys, database configs, private keys
 - **Cloud metadata exfiltration** — on cloud instances, reading files like `/proc/self/environ` exposes runtime secrets
 - **Source code theft** — reading application source files to discover further vulnerabilities
