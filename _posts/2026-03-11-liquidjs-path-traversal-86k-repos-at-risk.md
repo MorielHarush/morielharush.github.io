@@ -7,6 +7,7 @@ severity: "High"
 cvss: "8.7"
 affected: "LiquidJS < 10.25.0"
 ---
+<img width="1380" height="752" alt="image" src="https://github.com/user-attachments/assets/03fcff83-38c9-40a7-b599-d2006dd1f2f6" />
 
 Templating engines are the silent workhorses of the web. They sit between your data and your users, quietly rendering pages, emails, and layouts millions of times a day. We trust them implicitly — they're just string formatters, right? But when a templating engine starts reading files it was never supposed to touch, your "string formatter" becomes a full-blown intelligence asset for an attacker.
 
