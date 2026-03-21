@@ -952,6 +952,7 @@ footer a {
    Responsive
    ============================================================ */
 
+/* ---- Tablet ---- */
 @media (max-width: 1024px) {
   .post-grid {
     grid-template-columns: 1fr;
@@ -964,8 +965,14 @@ footer a {
   .post-layout {
     display: block;
   }
+
+  main {
+    max-width: 100%;
+    padding: 2rem 2rem;
+  }
 }
 
+/* ---- Mobile ---- */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -981,14 +988,92 @@ footer a {
   .content { margin-left: 0; }
 
   main {
-    padding: 2rem 1.2rem;
+    padding: 1.2rem 1rem;
     padding-top: 3.5rem;
   }
 
-  .post-header h1 { font-size: 1.5rem; }
-  .post-info { flex-direction: column; gap: 0.3rem; }
-  .hero-image { height: 200px; }
-  .hero-title { font-size: 1.3rem; }
-  .hero-body { padding: 1.2rem 1.3rem; }
+  /* Hero */
+  .hero-image { height: 180px; }
+  .hero-title { font-size: 1.2rem; }
+  .hero-body { padding: 1rem 1.1rem; }
+  .hero-excerpt { font-size: 0.88rem; }
+  .hero-meta { gap: 0.5rem; }
+
+  /* Cards */
   .card-image { height: 140px; }
+  .card-body { padding: 1rem; }
+  .card-title { font-size: 0.92rem; }
+  .card-excerpt { font-size: 0.8rem; }
+
+  /* Post header */
+  .post-header h1 { font-size: 1.35rem; }
+  .post-info { flex-direction: column; gap: 0.3rem; }
+
+  /* Post body */
+  article h2 { font-size: 1.15rem; margin: 2rem 0 0.8rem; }
+  article h3 { font-size: 1rem; }
+  article p { font-size: 0.92rem; line-height: 1.75; }
+  article li { font-size: 0.92rem; }
+
+  /* Code blocks: prevent horizontal overflow */
+  pre {
+    padding: 0.8rem 1rem;
+    font-size: 0.78rem;
+  }
+
+  div.highlighter-rouge,
+  figure.highlight {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  /* Tables: horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  th, td {
+    padding: 0.5rem 0.7rem;
+  }
+
+  /* Images */
+  article img {
+    margin: 1rem 0;
+    border-radius: var(--radius-sm);
+  }
+
+  article img:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Section headers */
+  .section-header h2 { font-size: 1.2rem; }
+  .section-header p { font-size: 0.82rem; }
+
+  /* Footer */
+  footer { padding: 1.2rem 1rem; }
+}
+
+/* ---- Small phones ---- */
+@media (max-width: 400px) {
+  main {
+    padding: 1rem 0.75rem;
+    padding-top: 3.5rem;
+  }
+
+  .hero-image { height: 150px; }
+  .hero-title { font-size: 1.1rem; }
+  .hero-body { padding: 0.9rem; }
+
+  .post-header h1 { font-size: 1.2rem; }
+
+  pre { font-size: 0.72rem; }
 }
