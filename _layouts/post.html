@@ -2,27 +2,87 @@
 layout: default
 ---
 
-<article>
-  <div class="post-header">
-    <h1>{{ page.title }}</h1>
-    <div class="post-info">
-      <span>{{ page.date | date: "%Y-%m-%d" }}</span>
-      {% if page.cve %}<span>{{ page.cve }}</span>{% endif %}
-      {% if page.severity %}
-        {% if page.severity == "Critical" %}
-          <span class="badge badge-critical">{{ page.severity }}</span>
-        {% elsif page.severity == "High" %}
-          <span class="badge badge-high">{{ page.severity }}</span>
-        {% elsif page.severity == "Medium" %}
-          <span class="badge badge-medium">{{ page.severity }}</span>
-        {% else %}
-          <span class="badge badge-low">{{ page.severity }}</span>
+<div class="post-layout">
+  <article class="post-content">
+    <div class="post-header">
+      <h1>{{ page.title }}</h1>
+      <div class="post-info">
+        <span>{{ page.date | date: "%B %d, %Y" }}</span>
+        {% if page.cve %}<span>{{ page.cve }}</span>{% endif %}
+        {% if page.severity %}
+          {% if page.severity == "Critical" %}
+            <span class="badge badge-critical">{{ page.severity }}</span>
+          {% elsif page.severity == "High" %}
+            <span class="badge badge-high">{{ page.severity }}</span>
+          {% elsif page.severity == "Medium" %}
+            <span class="badge badge-medium">{{ page.severity }}</span>
+          {% else %}
+            <span class="badge badge-low">{{ page.severity }}</span>
+          {% endif %}
         {% endif %}
-      {% endif %}
-      {% if page.cvss %}<span>CVSS: {{ page.cvss }}</span>{% endif %}
-      {% if page.affected %}<span>Affected: {{ page.affected }}</span>{% endif %}
+        {% if page.cvss %}<span>CVSS: {{ page.cvss }}</span>{% endif %}
+        {% if page.affected %}<span>Affected: {{ page.affected }}</span>{% endif %}
+      </div>
     </div>
-  </div>
 
-  {{ content }}
-</article>
+    <div class="post-body" id="post-body">
+      {{ content }}
+    </div>
+  </article>
+
+  <!-- Sticky TOC sidebar -->
+  <aside class="toc-aside" id="toc-aside">
+    <nav class="toc" id="toc">
+      <div class="toc-header">Table of contents</div>
+      <ol class="toc-list" id="toc-list"></ol>
+    </nav>
+  </aside>
+</div>
+
+<script>
+(function() {
+  var body = document.getElementById('post-body');
+  var tocList = document.getElementById('toc-list');
+  var tocAside = document.getElementById('toc-aside');
+  var headings = body.querySelectorAll('h2, h3');
+
+  if (headings.length < 2) {
+    tocAside.style.display = 'none';
+    document.querySelector('.post-layout').classList.add('no-toc');
+    return;
+  }
+
+  headings.forEach(function(h, i) {
+    var id = 'section-' + i;
+    h.id = id;
+
+    var li = document.createElement('li');
+    li.className = h.tagName === 'H3' ? 'toc-item toc-sub' : 'toc-item';
+
+    var a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = h.textContent;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+
+  // Highlight active section on scroll
+  var tocLinks = tocList.querySelectorAll('a');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(function(link) { link.classList.remove('active'); });
+        var activeLink = tocList.querySelector('a[href="#' + entry.target.id + '"]');
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+  headings.forEach(function(h) { observer.observe(h); });
+})();
+</script>

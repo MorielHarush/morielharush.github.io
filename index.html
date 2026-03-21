@@ -3,71 +3,146 @@ layout: default
 title: Home
 ---
 
-<div class="home-header">
-  <h1>Research</h1>
+<!-- Hero: Latest post -->
+{% assign latest = site.posts | first %}
+{% if latest %}
+<a href="{{ latest.url | relative_url }}" class="hero-card">
+  <div class="hero-image">
+    {% assign hero_img = latest.content | split: 'src="' %}
+    {% if hero_img.size > 1 %}
+      {% assign hero_src = hero_img[1] | split: '"' | first %}
+      <img src="{{ hero_src }}" alt="{{ latest.title }}">
+    {% else %}
+      {% assign hero_md = latest.content | split: '![' %}
+      {% if hero_md.size > 1 %}
+        {% assign hero_md_src = hero_md[1] | split: '(' | last | split: ')' | first %}
+        <img src="{{ hero_md_src }}" alt="{{ latest.title }}">
+      {% else %}
+        <div class="hero-placeholder"></div>
+      {% endif %}
+    {% endif %}
+  </div>
+  <div class="hero-body">
+    <div class="hero-meta">
+      <span class="hero-label">Latest Research</span>
+      <span class="hero-date">{{ latest.date | date: "%B %d, %Y" }}</span>
+    </div>
+    <h2 class="hero-title">{{ latest.title }}</h2>
+    <p class="hero-excerpt">{{ latest.excerpt | strip_html | truncatewords: 40 }}</p>
+    <div class="hero-tags">
+      {% if latest.cve %}<span class="hero-tag">{{ latest.cve }}</span>{% endif %}
+      {% if latest.severity %}
+        {% if latest.severity == "Critical" %}
+          <span class="badge badge-critical">{{ latest.severity }}</span>
+        {% elsif latest.severity == "High" %}
+          <span class="badge badge-high">{{ latest.severity }}</span>
+        {% elsif latest.severity == "Medium" %}
+          <span class="badge badge-medium">{{ latest.severity }}</span>
+        {% else %}
+          <span class="badge badge-low">{{ latest.severity }}</span>
+        {% endif %}
+      {% endif %}
+      {% if latest.affected %}<span class="hero-tag">{{ latest.affected }}</span>{% endif %}
+    </div>
+  </div>
+</a>
+{% endif %}
+
+<!-- Section: Research -->
+{% assign research_posts = site.posts | where: "category", "research" %}
+{% if research_posts.size > 0 %}
+<div class="section-header">
+  <h2>Research</h2>
   <p>Deep dives into real-world security research, IoT hacking, and attack chain analysis.</p>
 </div>
 
-{% assign research_posts = site.posts | where: "category", "research" %}
-{% if research_posts.size > 0 %}
-<ul class="post-list">
+<div class="post-grid">
   {% for post in research_posts %}
-  <li class="post-item">
-    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    <div class="post-meta">
-      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-      {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
-      {% if post.severity %}
-        {% if post.severity == "Critical" %}
-          <span class="badge badge-critical">{{ post.severity }}</span>
-        {% elsif post.severity == "High" %}
-          <span class="badge badge-high">{{ post.severity }}</span>
-        {% elsif post.severity == "Medium" %}
-          <span class="badge badge-medium">{{ post.severity }}</span>
+  <a href="{{ post.url | relative_url }}" class="card">
+    <div class="card-image">
+      {% assign img = post.content | split: 'src="' %}
+      {% if img.size > 1 %}
+        {% assign img_src = img[1] | split: '"' | first %}
+        <img src="{{ img_src }}" alt="{{ post.title }}" loading="lazy">
+      {% else %}
+        {% assign img_md = post.content | split: '![' %}
+        {% if img_md.size > 1 %}
+          {% assign img_md_src = img_md[1] | split: '(' | last | split: ')' | first %}
+          <img src="{{ img_md_src }}" alt="{{ post.title }}" loading="lazy">
         {% else %}
-          <span class="badge badge-low">{{ post.severity }}</span>
+          <div class="card-placeholder"></div>
         {% endif %}
       {% endif %}
-      {% if post.affected %}<span>{{ post.affected }}</span>{% endif %}
     </div>
-    {% if post.excerpt %}
-      <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
-    {% endif %}
-  </li>
+    <div class="card-body">
+      <div class="card-meta">
+        <span>{{ post.date | date: "%B %d, %Y" }}</span>
+        {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
+        {% if post.severity %}
+          {% if post.severity == "Critical" %}
+            <span class="badge badge-critical">{{ post.severity }}</span>
+          {% elsif post.severity == "High" %}
+            <span class="badge badge-high">{{ post.severity }}</span>
+          {% elsif post.severity == "Medium" %}
+            <span class="badge badge-medium">{{ post.severity }}</span>
+          {% else %}
+            <span class="badge badge-low">{{ post.severity }}</span>
+          {% endif %}
+        {% endif %}
+      </div>
+      <h3 class="card-title">{{ post.title }}</h3>
+      <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 22 }}</p>
+    </div>
+  </a>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 
-<div class="home-header" style="margin-top: 3rem;">
-  <h1>Security Advisories</h1>
+<!-- Section: Advisories -->
+<div class="section-header">
+  <h2>Security Advisories</h2>
   <p>Vulnerability research, CVE writeups, and responsible disclosures.</p>
 </div>
 
-<ul class="post-list">
+<div class="post-grid">
   {% for post in site.posts %}
     {% unless post.category == "research" %}
-  <li class="post-item">
-    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    <div class="post-meta">
-      <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-      {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
-      {% if post.severity %}
-        {% if post.severity == "Critical" %}
-          <span class="badge badge-critical">{{ post.severity }}</span>
-        {% elsif post.severity == "High" %}
-          <span class="badge badge-high">{{ post.severity }}</span>
-        {% elsif post.severity == "Medium" %}
-          <span class="badge badge-medium">{{ post.severity }}</span>
+  <a href="{{ post.url | relative_url }}" class="card">
+    <div class="card-image">
+      {% assign img = post.content | split: 'src="' %}
+      {% if img.size > 1 %}
+        {% assign img_src = img[1] | split: '"' | first %}
+        <img src="{{ img_src }}" alt="{{ post.title }}" loading="lazy">
+      {% else %}
+        {% assign img_md = post.content | split: '![' %}
+        {% if img_md.size > 1 %}
+          {% assign img_md_src = img_md[1] | split: '(' | last | split: ')' | first %}
+          <img src="{{ img_md_src }}" alt="{{ post.title }}" loading="lazy">
         {% else %}
-          <span class="badge badge-low">{{ post.severity }}</span>
+          <div class="card-placeholder"></div>
         {% endif %}
       {% endif %}
-      {% if post.affected %}<span>{{ post.affected }}</span>{% endif %}
     </div>
-    {% if post.excerpt %}
-      <div class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
-    {% endif %}
-  </li>
+    <div class="card-body">
+      <div class="card-meta">
+        <span>{{ post.date | date: "%B %d, %Y" }}</span>
+        {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
+        {% if post.severity %}
+          {% if post.severity == "Critical" %}
+            <span class="badge badge-critical">{{ post.severity }}</span>
+          {% elsif post.severity == "High" %}
+            <span class="badge badge-high">{{ post.severity }}</span>
+          {% elsif post.severity == "Medium" %}
+            <span class="badge badge-medium">{{ post.severity }}</span>
+          {% else %}
+            <span class="badge badge-low">{{ post.severity }}</span>
+          {% endif %}
+        {% endif %}
+      </div>
+      <h3 class="card-title">{{ post.title }}</h3>
+      <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 22 }}</p>
+    </div>
+  </a>
     {% endunless %}
   {% endfor %}
-</ul>
+</div>
