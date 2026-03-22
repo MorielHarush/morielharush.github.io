@@ -4,7 +4,7 @@ title: "CVE-2024-42338: CyberArk Identity - Full User List Exposure via Search F
 date: 2024-08-22
 cve: "CVE-2024-42338"
 severity: "Medium"
-cvss: "TBD"
+cvss: "4.3"
 affected: "CyberArk Identity Management"
 ---
 

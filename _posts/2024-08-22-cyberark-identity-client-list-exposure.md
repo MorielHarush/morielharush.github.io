@@ -4,7 +4,7 @@ title: "CVE-2024-42337: CyberArk Identity - Exposure of Complete Client List to 
 date: 2024-08-22
 cve: "CVE-2024-42337"
 severity: "Medium"
-cvss: "TBD"
+cvss: "6.5"
 affected: "CyberArk Identity Management"
 ---
 

@@ -4,7 +4,7 @@ title: "CVE-2024-42339: CyberArk Identity - IDOR Exposing Other Users' Rules and
 date: 2024-08-22
 cve: "CVE-2024-42339"
 severity: "Medium"
-cvss: "TBD"
+cvss: "4.3"
 affected: "CyberArk Identity Management"
 ---
 

@@ -4,7 +4,7 @@ title: "CVE-2024-42340: CyberArk Identity - Privilege Escalation via Client-Side
 date: 2024-08-22
 cve: "CVE-2024-42340"
 severity: "High"
-cvss: "TBD"
+cvss: "8.3"
 affected: "CyberArk Identity Management"
 ---
 
