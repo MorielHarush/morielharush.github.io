@@ -4,7 +4,7 @@ title: "CVE-2025-23182: UBtech Freepass - User Enumeration via Password Reset"
 date: 2025-05-21
 cve: "CVE-2025-23182"
 severity: "Medium"
-cvss: "TBD"
+cvss: "4.3"
 affected: "UBtech Freepass version 1.3.1807.1500"
 ---
 
