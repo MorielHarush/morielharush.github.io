@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Grounded by Default — How Default Credentials Gave Us Root on Military Drone Comms"
-date: 2024-06-01
+date: 2022-10-27
 cve: "CVE-2022-36784"
 severity: "Critical"
 cvss: "9.8"
