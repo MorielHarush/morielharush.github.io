@@ -7,6 +7,7 @@ severity: "Medium"
 cvss: "6.5"
 affected: "Emby MediaBrowser version 4.9.0.35"
 ---
+<img width="1024" height="752" src="/assets/images/embylogo.jpg" />
 
 Emby is a popular self-hosted media server platform used to organize, stream, and share personal media libraries across devices. It handles user authentication, access permissions, and sensitive media metadata, making its security posture critical.
 
