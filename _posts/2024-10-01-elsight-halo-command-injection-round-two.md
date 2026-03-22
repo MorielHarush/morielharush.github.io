@@ -63,7 +63,7 @@ Collaborator confirms root again:
 
 With command injection confirmed on both parameters, getting a full reverse shell was straightforward:
 
-<img width="1024" alt="Reverse shell as root on the Elsight Halo" src="/assets/images/elsightReverseShell.png" />
+<img width="1024" alt="Reverse shell as root on the Elsight Halo" src="/assets/images/ElsightReverseShellObf.png" />
 
 *A reverse shell on the Elsight Halo - running as `root` inside the `halo_web_service` container. Full control over the drone communication chipset.*
 
