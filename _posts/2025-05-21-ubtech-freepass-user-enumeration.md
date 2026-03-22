@@ -7,7 +7,7 @@ severity: "Medium"
 cvss: "4.3"
 affected: "UBtech Freepass version 1.3.1807.1500"
 ---
-<img width="1024" height="752" src="/assets/images/ubtechlogo.jpg" />
+<img width="720" height="400" src="/assets/images/ubtechlogo.jpg" />
 
 UBtech Freepass is an access management platform used for authentication and user session handling. During our assessment, we identified a User Enumeration vulnerability through the password reset functionality.
 
