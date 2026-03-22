@@ -7,6 +7,7 @@ severity: "Medium"
 cvss: "6.1"
 affected: "UBtech Freepass version 1.3.1807.1500"
 ---
+<img width="1024" height="752" src="/assets/images/ubtechlogo.jpg" />
 
 UBtech Freepass is an access management platform used for authentication and user session handling. During our assessment, we identified an Open Redirect vulnerability that allows an attacker to redirect users from the trusted application domain to any external site.
 
