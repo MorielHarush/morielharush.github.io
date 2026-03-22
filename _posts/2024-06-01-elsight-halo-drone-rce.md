@@ -6,7 +6,6 @@ cve: "CVE-2022-36784"
 severity: "Critical"
 cvss: "9.8"
 affected: "Elsight Halo Chipset"
-category: "research"
 ---
 
 <img width="1600" height="521" alt="image" src="https://github.com/user-attachments/assets/d65df733-04d3-4cc8-ae08-957f8403e1e4" />
