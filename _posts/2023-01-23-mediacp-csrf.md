@@ -22,7 +22,7 @@ The Media CP application does not implement CSRF tokens on state-changing operat
 
 The attacker creates an HTML page containing a hidden form that auto-submits to the Media CP user management endpoint:
 
-<img width="1024" alt="CSRF PoC HTML creating a new reseller customer account" src="/assets/images/MediaCPCSRF-CVE-2023-23465-1.jpg" />
+<img width="1024" alt="CSRF PoC HTML creating a new reseller customer account" src="/assets/images/MediaCPCSRF-CVE-2023-23465-1.png" />
 
 *The CSRF PoC - an HTML form that auto-submits a POST request to create a new "ResellerCustomer" account with attacker-controlled credentials. The victim's browser sends the request with their active session.*
 
