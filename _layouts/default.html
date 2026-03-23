@@ -47,7 +47,8 @@
 
       <div class="sidebar-divider"></div>
 
-      <div class="sidebar-section-title">Research</div>
+      {% assign research_count = 0 %}{% for post in site.posts %}{% if post.category == "research" %}{% assign research_count = research_count | plus: 1 %}{% endif %}{% endfor %}
+      <div class="sidebar-section-title">Research <span class="sidebar-count">{{ research_count }}</span></div>
       <ul class="sidebar-posts sidebar-filterable" id="sidebar-research-list">
         {% for post in site.posts %}
           {% if post.category == "research" %}
@@ -72,7 +73,8 @@
         {% endfor %}
       </ul>
 
-      <div class="sidebar-section-title">Advisories</div>
+      {% assign advisory_count = 0 %}{% for post in site.posts %}{% unless post.category == "research" %}{% assign advisory_count = advisory_count | plus: 1 %}{% endunless %}{% endfor %}
+      <div class="sidebar-section-title">Advisories <span class="sidebar-count">{{ advisory_count }}</span></div>
       <ul class="sidebar-posts sidebar-filterable" id="sidebar-post-list">
         {% for post in site.posts %}
           {% unless post.category == "research" %}
