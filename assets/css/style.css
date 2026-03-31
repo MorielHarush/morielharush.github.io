@@ -42,6 +42,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -53,6 +54,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* ============================================================
@@ -708,6 +710,8 @@ article p {
   margin-bottom: 1.2rem;
   color: var(--text-secondary);
   line-height: 1.85;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 article a {
@@ -730,6 +734,7 @@ article li {
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
   line-height: 1.75;
+  overflow-wrap: anywhere;
 }
 
 article strong {
@@ -753,6 +758,12 @@ p code, li code, td code {
   border-radius: 5px;
   font-size: 0.83em;
   border: none;
+  white-space: normal;
+  word-break: break-word;
+}
+
+article a {
+  overflow-wrap: anywhere;
 }
 
 div.highlighter-rouge,
@@ -796,6 +807,7 @@ pre {
   padding: 1.1rem 1.3rem;
   overflow-x: auto;
   line-height: 1.65;
+  max-width: 100%;
 }
 
 pre code {
@@ -1026,6 +1038,11 @@ footer a {
   article h3 { font-size: 1rem; }
   article p { font-size: 0.92rem; line-height: 1.75; }
   article li { font-size: 0.92rem; }
+
+  /* Prevent mobile zoom-out from long tokens/URLs */
+  article, .post-content {
+    overflow-x: hidden;
+  }
 
   /* Code blocks: prevent horizontal overflow */
   pre {
