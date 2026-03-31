@@ -823,6 +823,7 @@ pre code {
 
 article img {
   max-width: 100%;
+  width: auto;
   height: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -831,6 +832,13 @@ article img {
   cursor: zoom-in;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--shadow-sm);
+}
+
+/* Force HTML images with width/height attrs to stay responsive */
+article img[width],
+article img[height] {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 article img:hover {
@@ -1074,6 +1082,9 @@ footer a {
 
   /* Images */
   article img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
     margin: 1rem 0;
     border-radius: var(--radius-sm);
   }
