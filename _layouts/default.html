@@ -126,6 +126,12 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    // Strip width/height HTML attributes so CSS max-width works on mobile
+    document.querySelectorAll('article img[width], article img[height]').forEach(function (img) {
+      img.removeAttribute('width');
+      img.removeAttribute('height');
+    });
+
     document.querySelectorAll('article img').forEach(function (img) {
       img.addEventListener('click', function () {
         var overlay = document.createElement('div');

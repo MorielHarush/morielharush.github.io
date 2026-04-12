@@ -43,6 +43,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -322,9 +323,11 @@ body {
 .content {
   margin-left: var(--sidebar-width);
   flex: 1;
+  min-width: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 main {
@@ -615,6 +618,16 @@ main {
   min-width: 0;
 }
 
+.post-body {
+  min-width: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.post-body > * {
+  max-width: 100%;
+}
+
 .post-layout.no-toc {
   display: block;
 }
@@ -774,6 +787,7 @@ figure.highlight {
   margin: 1.5rem 0;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  max-width: 100%;
 }
 
 div.highlighter-rouge::before,
@@ -808,6 +822,7 @@ pre {
   overflow-x: auto;
   line-height: 1.65;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 pre code {
@@ -837,6 +852,7 @@ article img {
 /* Force HTML images with width/height attrs to stay responsive */
 article img[width],
 article img[height] {
+  width: auto;
   max-width: 100% !important;
   height: auto !important;
 }
@@ -897,12 +913,15 @@ table {
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  table-layout: fixed;
 }
 
 th, td {
   border: 1px solid var(--border);
   padding: 0.7rem 1rem;
   text-align: left;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 th {
@@ -1018,10 +1037,12 @@ footer a {
   .sidebar-toggle { display: block; }
   .sidebar-overlay.active { display: block; }
   .content { margin-left: 0; }
+  .layout { overflow-x: hidden; }
 
   main {
     padding: 1.2rem 1rem;
     padding-top: 3.5rem;
+    overflow-x: hidden;
   }
 
   /* Hero */
@@ -1072,8 +1093,9 @@ footer a {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
+    white-space: normal;
     font-size: 0.8rem;
+    table-layout: auto;
   }
 
   th, td {
