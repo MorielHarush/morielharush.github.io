@@ -45,7 +45,7 @@ The combination turns `chrome.tabs.update` into a primitive that any page on the
 ## Proof of Concept
 
 <video controls playsinline preload="metadata" style="width:100%;max-width:900px;display:block;margin:1em auto;border-radius:6px;">
-  <source src="{{ '/assets/videos/Todoist.mp4' | relative_url }}" type="video/mp4">
+  <source src="{{ '/assets/videos/Todoistv1.mp4' | relative_url }}" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
