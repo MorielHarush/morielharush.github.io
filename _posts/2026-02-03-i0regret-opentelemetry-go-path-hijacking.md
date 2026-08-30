@@ -6,8 +6,9 @@ cve: "CVE-2026-24051"
 severity: "High"
 cvss: "8.8"
 affected: "OpenTelemetry-Go SDK < v1.40.0"
+vendor: "OpenTelemetry"
 ---
-<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/75173a31-ba9a-469b-8a26-a979aaf6609a" />
+<img width="1024" height="559" alt="image" src="/assets/images/i0regret-opentelemetry-go-path-hijacking-1.png" />
 
 In the cloud-native ecosystem, we rely on SDKs as the "truth" for telemetry and observability. We assume these libraries are passive observers, but when a core component like OpenTelemetry-Go trusts its environment too much, it stops being a sensor and starts being an entry point.
 
@@ -69,7 +70,7 @@ exit 0
 
 The application continues to function normally, leaving no immediate red flags while a massive credential leak occurs in the background.
 
-<img width="2240" height="1083" alt="image" src="https://github.com/user-attachments/assets/dccfe59c-9359-4e40-986a-34caaa868e8f" />
+<img width="2240" height="1083" alt="image" src="/assets/images/i0regret-opentelemetry-go-path-hijacking-2.png" />
 
 *The malicious ioreg wrapper exfiltrating CI secrets to an external webhook.*
 
@@ -79,7 +80,7 @@ Secure systems programming dictates that you should **never trust your environme
 
 The maintainers updated the `hostIDReaderDarwin` implementation to use the absolute path for `ioreg`. This simple transition from `ioreg` to `/usr/sbin/ioreg` breaks the hijacking chain, ensuring the SDK maintains its integrity even in highly volatile CI/CD environments.
 
-<img width="2240" height="444" alt="image" src="https://github.com/user-attachments/assets/e9162313-9241-41e9-be82-7d94c66c6070" />
+<img width="2240" height="444" alt="image" src="/assets/images/i0regret-opentelemetry-go-path-hijacking-3.png" />
 
 *The one-line fix: using an absolute path instead of relying on PATH resolution.*
 

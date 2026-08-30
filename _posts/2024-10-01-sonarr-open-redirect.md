@@ -6,6 +6,8 @@ cve: "CVE-2024-45247"
 severity: "Medium"
 cvss: "TBD"
 affected: "Sonarr before version 4.0.9.2244"
+vendor: "Sonarr"
+image: "/assets/images/covers/sonarr-open-redirect.svg"
 ---
 
 Sonarr is a popular open-source PVR (Personal Video Recorder) application used to automate downloading and managing TV series. It is widely deployed on home servers, NAS devices, and media management setups.

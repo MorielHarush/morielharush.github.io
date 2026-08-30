@@ -1,0 +1,91 @@
+---
+layout: default
+title: Advisories
+permalink: /advisories/
+---
+
+{% assign advisories = site.posts | where: "category", "advisory" %}
+
+<div class="page-header">
+  <h1>Security Advisories</h1>
+  <p>{{ advisories.size }} vulnerability disclosures and CVE writeups. Filter from the sidebar, or change the ordering below.</p>
+</div>
+
+<section class="index-section" id="section-advisories">
+  <div class="list-toolbar">
+    <span class="result-count" id="result-count" data-noun="advisories"></span>
+
+    <div class="toolbar-actions">
+      <div class="sort-control" id="sort-control" role="group" aria-label="Sort advisories by">
+        <span class="sort-label">Sort</span>
+        <button type="button" class="sort-btn" data-sort="date">Date</button>
+        <button type="button" class="sort-btn" data-sort="sev-rank">Severity</button>
+        <button type="button" class="sort-btn" data-sort="cvss">CVSS</button>
+        <button type="button" class="sort-btn" data-sort="vendor">Vendor</button>
+      </div>
+      <button type="button" class="clear-filters" id="clear-filters" hidden>Clear filters</button>
+    </div>
+  </div>
+
+  <div class="adv-list" id="adv-list">
+    {% for post in advisories %}
+      {% capture label %}{% include finding-title.html post=post %}{% endcapture %}
+      {% capture thumb %}{% include post-image-src.html post=post %}{% endcapture %}
+      {% assign sev = post.severity | downcase | default: "none" %}
+      {% assign sev_rank = 0 %}
+      {% if post.severity == "Critical" %}{% assign sev_rank = 4 %}
+      {% elsif post.severity == "High" %}{% assign sev_rank = 3 %}
+      {% elsif post.severity == "Medium" %}{% assign sev_rank = 2 %}
+      {% elsif post.severity %}{% assign sev_rank = 1 %}{% endif %}
+
+    <a href="{{ post.url | relative_url }}" class="adv-row filterable"
+       data-severity="{{ post.severity }}"
+       data-sev-rank="{{ sev_rank }}"
+       data-vendor="{{ post.vendor }}"
+       data-year="{{ post.date | date: '%Y' }}"
+       data-cve="{{ post.cve }}"
+       data-cvss="{{ post.cvss | default: 0 }}"
+       data-date="{{ post.date | date: '%Y%m%d' }}"
+       data-title="{{ label | downcase | escape }}"
+       data-text="{{ post.title | append: ' ' | append: post.cve | append: ' ' | append: post.vendor | append: ' ' | append: post.affected | downcase | escape }}">
+
+      <span class="adv-accent sev-{{ sev }}"></span>
+
+      <span class="adv-thumb">
+        {% if thumb != "" %}
+          <img src="{{ thumb }}" alt="" loading="lazy">
+        {% else %}
+          <span class="adv-thumb-mono sev-{{ sev }}">{{ post.vendor | slice: 0, 2 | upcase }}</span>
+        {% endif %}
+      </span>
+
+      <span class="adv-main">
+        <span class="adv-top">
+          {% if post.severity %}<span class="badge badge-{{ sev }}">{{ post.severity }}</span>{% endif %}
+          {% if post.cve %}<span class="adv-cve">{{ post.cve }}</span>{% endif %}
+        </span>
+        <span class="adv-title">{{ label }}</span>
+        <span class="adv-meta">
+          {% if post.vendor %}<span class="adv-vendor">{{ post.vendor }}</span>{% endif %}
+          {% if post.affected %}<span class="adv-affected">{{ post.affected }}</span>{% endif %}
+          <span class="adv-date">{{ post.date | date: "%b %Y" }}</span>
+        </span>
+      </span>
+
+      <span class="adv-score">
+        {% if post.cvss %}
+          {% assign pct = post.cvss | times: 10.0 %}
+          <span class="adv-cvss">{{ post.cvss }}</span>
+          <span class="adv-cvss-label">CVSS</span>
+          <span class="cvss-bar"><i class="cvss-fill sev-{{ sev }}" style="width: {{ pct }}%"></i></span>
+        {% else %}
+          <span class="adv-cvss muted">&mdash;</span>
+          <span class="adv-cvss-label">CVSS</span>
+        {% endif %}
+      </span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <p class="section-empty" hidden>No advisories match these filters.</p>
+</section>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="Poisoned Coworker: a host-side settings file is modified outside the Cowork VM, and the agent inside the intact sandbox executes a different command than the one it reports.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="redglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+
+    <marker id="arrowRed" viewBox="0 0 12 12" refX="9" refY="6"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Ground -->
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="835" cy="215" rx="300" ry="190" fill="url(#redglow)"/>
+
+  <!-- ── Left: title ───────────────────────────────────────────── -->
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">AI AGENT SECURITY</text>
+
+    <text x="80" y="220" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">POISONED</text>
+    <text x="80" y="292" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">COWORKER</text>
+
+    <rect x="80" y="326" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="374" font-size="27" font-weight="500" fill="#8b949e">Hijacking Claude Cowork</text>
+    <text x="80" y="412" font-size="21" font-weight="400" fill="#6e7a8a">No escape. No exploit. One swapped file.</text>
+  </g>
+
+  <!-- ── Right: the mechanism ──────────────────────────────────── -->
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+
+    <!-- Host-side file, outside the sandbox -->
+    <text x="672" y="112" font-size="17" font-weight="600" letter-spacing="1.6" fill="#8b949e">HOST FILE &#183; OUTSIDE THE SANDBOX</text>
+
+    <rect x="670" y="126" width="330" height="58" rx="11" fill="#1b2432" stroke="#ef4444" stroke-width="2"/>
+    <text x="692" y="163" font-size="21" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">settings.json</text>
+    <g transform="translate(944,140)">
+      <circle cx="14" cy="15" r="15" fill="#ef4444" fill-opacity="0.18"/>
+      <path d="M8 22 L9 17 L20 6 L24 10 L13 21 z" fill="#ef4444"/>
+    </g>
+
+    <!-- Poison crossing the boundary -->
+    <line x1="835" y1="192" x2="835" y2="236" stroke="#ef4444" stroke-width="4" marker-end="url(#arrowRed)"/>
+
+    <!-- The sandbox: never breached -->
+    <rect x="640" y="248" width="480" height="180" rx="18"
+          fill="#2dd4bf" fill-opacity="0.045" stroke="#2dd4bf" stroke-width="2.5" stroke-dasharray="11 8"/>
+    <text x="662" y="282" font-size="16" font-weight="700" letter-spacing="1.8" fill="#2dd4bf">COWORK VM &#183; STILL INTACT</text>
+
+    <!-- What it says -->
+    <rect x="662" y="298" width="212" height="62" rx="12" fill="#1b2432"/>
+    <text x="680" y="336" font-size="19" fill="#c9d1d9">&#8220;Running tests&#8230;&#8221;</text>
+
+    <!-- What it does -->
+    <rect x="888" y="298" width="212" height="62" rx="12" fill="#0b0f16" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.7"/>
+    <text x="906" y="336" font-size="18" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">$ curl … | sh</text>
+
+    <text x="662" y="400" font-size="17" fill="#7d8797">Same interface &#183; different agenda</text>
+  </g>
+</svg>

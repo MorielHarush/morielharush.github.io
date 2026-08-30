@@ -6,6 +6,8 @@ cve: "CVE-2022-39181"
 severity: "Medium"
 cvss: "TBD"
 affected: "GLPI Reports Plugin"
+vendor: "GLPI"
+image: "/assets/images/covers/glpi-reports-plugin-xss.svg"
 ---
 
 GLPI is an open-source IT asset management and helpdesk platform used by enterprises to manage IT infrastructure, track assets, and handle support tickets. The Reports plugin extends GLPI with additional reporting and analytics capabilities.

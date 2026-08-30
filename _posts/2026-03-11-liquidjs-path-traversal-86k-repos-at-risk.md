@@ -6,8 +6,9 @@ cve: "CVE-2026-30952"
 severity: "High"
 cvss: "8.7"
 affected: "LiquidJS < 10.25.0"
+vendor: "LiquidJS"
 ---
-<img width="1380" height="752" alt="image" src="https://github.com/user-attachments/assets/03fcff83-38c9-40a7-b599-d2006dd1f2f6" />
+<img width="1380" height="752" alt="image" src="/assets/images/liquidjs-path-traversal-86k-repos-at-risk-1.png" />
 
 Templating engines are the silent workhorses of the web. They sit between your data and your users, quietly rendering pages, emails, and layouts millions of times a day. We trust them implicitly — they're just string formatters, right? But when a templating engine starts reading files it was never supposed to touch, your "string formatter" becomes a full-blown intelligence asset for an attacker.
 
@@ -70,7 +71,7 @@ engine.parseAndRender('{% raw %}{% include page %}{% endraw %}', { page: '../../
   .then(output => console.log(output.slice(0, 500)));
 ```
 
-<img width="829" height="349" alt="image" src="https://github.com/user-attachments/assets/f0dc366a-0ece-441f-a160-b309cda53031" />
+<img width="829" height="349" alt="image" src="/assets/images/liquidjs-path-traversal-86k-repos-at-risk-2.png" />
 
 That's it. Despite the root directory being explicitly locked to `/tmp`, the engine happily traverses up to `/etc/passwd` and dumps its contents. The `dynamicPartials` option — commonly enabled for flexible template systems — allows the `page` variable to be attacker-controlled, turning a template render call into an arbitrary file read primitive.
 

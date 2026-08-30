@@ -6,6 +6,8 @@ cve: "CVE-2021-36720"
 severity: "Medium"
 cvss: "6.1"
 affected: "Cybonet PineApp Mail Secure"
+vendor: "Cybonet"
+image: "/assets/images/covers/cybonet-pineapp-reflected-xss.svg"
 ---
 
 PineApp Mail Secure by Cybonet is an email security gateway used by organizations to filter, relay, and manage email traffic.

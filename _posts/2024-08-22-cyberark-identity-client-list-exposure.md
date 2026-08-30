@@ -6,6 +6,8 @@ cve: "CVE-2024-42337"
 severity: "Medium"
 cvss: "6.5"
 affected: "CyberArk Identity Management"
+vendor: "CyberArk"
+image: "/assets/images/covers/cyberark-identity-client-list-exposure.svg"
 ---
 
 CyberArk Identity is an enterprise identity and access management platform used by organizations to secure user authentication, single sign-on, and privileged access across cloud and on-premises environments.

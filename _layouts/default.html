@@ -22,83 +22,240 @@
           <span class="brand-icon">&#9781;</span>
           <span class="brand-text">Moriel Harush</span>
         </a>
-        <p>Security Research & Vulnerability Disclosures</p>
-      </div>
-
-      <div class="search-box">
-        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off">
+        <p>Security Research &amp; Vulnerability Disclosures</p>
       </div>
 
       <nav class="sidebar-nav">
-        <a href="{{ '/' | relative_url }}">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Home
         </a>
-        <a href="{{ '/about' | relative_url }}">
+        <a href="{{ '/research/' | relative_url }}"{% if page.url contains '/research' %} class="active"{% endif %}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6v6l4.2 8.4A2 2 0 0 1 17.4 20H6.6a2 2 0 0 1-1.8-3.6L9 8z"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
+          Research
+        </a>
+        <a href="{{ '/advisories/' | relative_url }}"{% if page.url contains '/advisories' %} class="active"{% endif %}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Advisories
+        </a>
+        <a href="{{ '/about' | relative_url }}"{% if page.url contains '/about' %} class="active"{% endif %}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           About
         </a>
-        <a href="https://github.com/morielharush" target="_blank">
+        <a href="https://github.com/morielharush" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
       </nav>
 
-      <div class="sidebar-divider"></div>
+      {% if page.layout == 'post' %}
+      {%- comment -%} POST PAGES: the rail carries context for the article you are reading. {%- endcomment -%}
 
-      {% assign research_count = 0 %}{% for post in site.posts %}{% if post.category == "research" %}{% assign research_count = research_count | plus: 1 %}{% endif %}{% endfor %}
-      <div class="sidebar-section-title">Research <span class="sidebar-count">{{ research_count }}</span></div>
-      <ul class="sidebar-posts sidebar-filterable" id="sidebar-research-list">
-        {% for post in site.posts %}
-          {% if post.category == "research" %}
-          <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }} {{ post.tags | join: ' ' | downcase }}">
-            <a href="{{ post.url | relative_url }}">
-              <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
-              <span class="post-title-text">{{ post.title }}</span>
-              {% if post.severity %}
-                {% if post.severity == "Critical" %}
-                  <span class="badge badge-critical">{{ post.severity }}</span>
-                {% elsif post.severity == "High" %}
-                  <span class="badge badge-high">{{ post.severity }}</span>
-                {% elsif post.severity == "Medium" %}
-                  <span class="badge badge-medium">{{ post.severity }}</span>
-                {% else %}
-                  <span class="badge badge-low">{{ post.severity }}</span>
+        {%- comment -%}
+          Related reading: same vendor first (strongest signal), then anything
+          sharing a tag, de-duplicated. Falls back to recent posts so the rail is
+          never empty on a one-off finding. Liquid 4 safe -- no `push` filter,
+          since GitHub Pages builds on Jekyll 3.10.
+        {%- endcomment -%}
+        {% assign self_url = page.url %}
+        {% assign candidates = "" | split: "" %}
+
+        {% if page.vendor %}
+          {% assign by_vendor = site.posts | where: "vendor", page.vendor %}
+          {% assign candidates = candidates | concat: by_vendor %}
+        {% endif %}
+
+        {% if page.tags %}
+          {% for t in page.tags %}
+            {% assign by_tag = site.posts | where_exp: "p", "p.tags contains t" %}
+            {% assign candidates = candidates | concat: by_tag %}
+          {% endfor %}
+        {% endif %}
+
+        {% assign shown = 0 %}
+        {% assign seen = "" %}
+        {% capture related_items %}
+          {% for p in candidates %}
+            {% if shown >= 6 %}{% break %}{% endif %}
+            {% unless p.url == self_url %}
+              {% capture key %}|{{ p.url }}|{% endcapture %}
+              {% unless seen contains key %}
+                {% assign seen = seen | append: key %}
+                {% assign shown = shown | plus: 1 %}
+                {% assign rtitle = p.title %}
+                {% if p.cve and rtitle contains p.cve %}
+                  {% assign rtitle = rtitle | remove_first: p.cve | remove_first: ":" | strip %}
                 {% endif %}
-              {% endif %}
-            </a>
-          </li>
+                {% assign rparts = rtitle | split: " - " %}
+                {% if rparts.size > 1 %}
+                  {% assign rlead = rparts[0] %}
+                  {% assign rlead_len = rlead | size %}
+                  {% if rlead_len < 60 %}
+                    {% assign rtitle = rtitle | remove_first: rlead | remove_first: " - " %}
+                  {% endif %}
+                {% endif %}
+                <li>
+                  <a href="{{ p.url | relative_url }}">
+                    {% if p.severity %}<span class="facet-dot dot-{{ p.severity | downcase }}"></span>{% endif %}
+                    <span class="rail-link-text">{{ rtitle | truncate: 68 }}</span>
+                  </a>
+                  <span class="rail-link-sub">{% if p.vendor %}{{ p.vendor }} &middot; {% endif %}{{ p.date | date: "%b %Y" }}</span>
+                </li>
+              {% endunless %}
+            {% endunless %}
+          {% endfor %}
+        {% endcapture %}
+
+        {% assign has_related = related_items | strip %}
+        {% if has_related != "" %}
+        <div class="rail-block">
+          <div class="rail-title">Related <span class="sidebar-count">{{ shown }}</span></div>
+          <ul class="rail-links">{{ related_items }}</ul>
+          {% if page.vendor %}
+          <a class="rail-more" href="{{ '/advisories/' | relative_url }}?vendor={{ page.vendor | uri_escape }}">All {{ page.vendor }} findings &rarr;</a>
           {% endif %}
-        {% endfor %}
-      </ul>
+        </div>
+        {% else %}
+        <div class="rail-block">
+          <div class="rail-title">Recent posts</div>
+          <ul class="rail-links">
+            {%- comment -%} 6 so five remain once the current post is filtered out. {%- endcomment -%}
+            {% for p in site.posts limit: 6 %}
+              {% unless p.url == self_url %}
+              <li>
+                <a href="{{ p.url | relative_url }}">
+                  {% if p.severity %}<span class="facet-dot dot-{{ p.severity | downcase }}"></span>{% endif %}
+                  <span class="rail-link-text">{{ p.title | truncate: 68 }}</span>
+                </a>
+                <span class="rail-link-sub">{% if p.vendor %}{{ p.vendor }} &middot; {% endif %}{{ p.date | date: "%b %Y" }}</span>
+              </li>
+              {% endunless %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
 
-      {% assign advisory_count = 0 %}{% for post in site.posts %}{% unless post.category == "research" %}{% assign advisory_count = advisory_count | plus: 1 %}{% endunless %}{% endfor %}
-      <div class="sidebar-section-title">Advisories <span class="sidebar-count">{{ advisory_count }}</span></div>
-      <ul class="sidebar-posts sidebar-filterable" id="sidebar-post-list">
-        {% for post in site.posts %}
-          {% unless post.category == "research" %}
-          <li data-title="{{ post.title | downcase }}" data-cve="{{ post.cve | downcase }}" data-tags="{{ post.affected | downcase }}">
-            <a href="{{ post.url | relative_url }}">
-              <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
-              <span class="post-title-text">{{ post.title }}</span>
-              {% if post.severity %}
-                {% if post.severity == "Critical" %}
-                  <span class="badge badge-critical">{{ post.severity }}</span>
-                {% elsif post.severity == "High" %}
-                  <span class="badge badge-high">{{ post.severity }}</span>
-                {% elsif post.severity == "Medium" %}
-                  <span class="badge badge-medium">{{ post.severity }}</span>
-                {% else %}
-                  <span class="badge badge-low">{{ post.severity }}</span>
-                {% endif %}
+      {% elsif page.url contains '/advisories' %}
+      {%- comment -%} ADVISORY INDEX: the rail is a filter surface over the table. {%- endcomment -%}
+
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search-input" placeholder="Search CVE, title, vendor..." autocomplete="off">
+        </div>
+
+        <div class="facet-active" id="facet-active" hidden>
+          <div class="rail-title">Active filters <button type="button" class="facet-clear" id="facet-clear">clear</button></div>
+          <div class="chips" id="facet-chips"></div>
+        </div>
+
+        {%- comment -%}
+          Counts are scoped to advisories because that is all this table holds --
+          a research post with a severity must not inflate the label. {%- endcomment -%}
+        {% assign adv = site.posts | where: "category", "advisory" %}
+
+        {% assign sev_order = "Critical,High,Medium,Low" | split: "," %}
+        <div class="facet-group">
+          <div class="rail-title">Severity</div>
+          <div class="facet-list">
+            {% for s in sev_order %}
+              {% assign n = adv | where: "severity", s | size %}
+              {% if n > 0 %}
+              <button type="button" class="facet-btn" data-facet="severity" data-value="{{ s }}">
+                <span class="facet-dot dot-{{ s | downcase }}"></span>
+                <span class="facet-name">{{ s }}</span>
+                <span class="facet-count">{{ n }}</span>
+              </button>
               {% endif %}
-            </a>
-          </li>
-          {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+
+        {% assign vendored = adv | where_exp: "p", "p.vendor" %}
+        {% assign vgroups = vendored | group_by: "vendor" | sort: "size" | reverse %}
+        <div class="facet-group">
+          <div class="rail-title">Vendor</div>
+          <div class="facet-list" id="vendor-facets">
+            {% for g in vgroups %}
+            <button type="button" class="facet-btn{% if forloop.index > 10 %} facet-overflow{% endif %}" data-facet="vendor" data-value="{{ g.name }}">
+              <span class="facet-name">{{ g.name }}</span>
+              <span class="facet-count">{{ g.size }}</span>
+            </button>
+            {% endfor %}
+          </div>
+          {% if vgroups.size > 10 %}
+          <button type="button" class="facet-more" id="vendor-more" data-more="Show all {{ vgroups.size }} vendors" data-less="Show fewer">Show all {{ vgroups.size }} vendors</button>
+          {% endif %}
+        </div>
+
+        {% assign ygroups = adv | group_by_exp: "p", "p.date | date: '%Y'" | sort: "name" | reverse %}
+        <div class="facet-group">
+          <div class="rail-title">Year</div>
+          <div class="facet-list facet-list-inline">
+            {% for g in ygroups %}
+            <button type="button" class="facet-btn facet-btn-sm" data-facet="year" data-value="{{ g.name }}">
+              <span class="facet-name">{{ g.name }}</span>
+              <span class="facet-count">{{ g.size }}</span>
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+      {% elsif page.url contains '/research' %}
+      {%- comment -%} RESEARCH INDEX: tags are the useful axis here, not severity. {%- endcomment -%}
+
+        {% assign res = site.posts | where: "category", "research" %}
+
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search-input" placeholder="Search research..." autocomplete="off">
+        </div>
+
+        <div class="facet-active" id="facet-active" hidden>
+          <div class="rail-title">Active filters <button type="button" class="facet-clear" id="facet-clear">clear</button></div>
+          <div class="chips" id="facet-chips"></div>
+        </div>
+
+        {%- comment -%}
+          Facet on the curated `topics:` axis, not the fine-grained `tags:` --
+          tags are near-unique per post, which makes for a useless filter.
+        {%- endcomment -%}
+        {% assign all_topics = "" | split: "" %}
+        {% for p in res %}
+          {% if p.topics %}{% assign all_topics = all_topics | concat: p.topics %}{% endif %}
         {% endfor %}
-      </ul>
-      <p class="no-results" id="no-results">No posts found.</p>
+        {% assign topic_groups = all_topics | group_by_exp: "t", "t" | sort: "size" | reverse %}
+
+        {% if topic_groups.size > 0 %}
+        <div class="facet-group">
+          <div class="rail-title">Topic</div>
+          <div class="facet-list" id="topic-facets">
+            {% for g in topic_groups %}
+            <button type="button" class="facet-btn{% if forloop.index > 10 %} facet-overflow{% endif %}" data-facet="topic" data-value="{{ g.name }}">
+              <span class="facet-name">{{ g.name }}</span>
+              <span class="facet-count">{{ g.size }}</span>
+            </button>
+            {% endfor %}
+          </div>
+          {% if topic_groups.size > 10 %}
+          <button type="button" class="facet-more" id="topic-more" data-more="Show all {{ topic_groups.size }} topics" data-less="Show fewer">Show all {{ topic_groups.size }} topics</button>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% assign ygroups = res | group_by_exp: "p", "p.date | date: '%Y'" | sort: "name" | reverse %}
+        <div class="facet-group">
+          <div class="rail-title">Year</div>
+          <div class="facet-list facet-list-inline">
+            {% for g in ygroups %}
+            <button type="button" class="facet-btn facet-btn-sm" data-facet="year" data-value="{{ g.name }}">
+              <span class="facet-name">{{ g.name }}</span>
+              <span class="facet-count">{{ g.size }}</span>
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+      {% endif %}
 
       <div class="sidebar-footer">
         <p>&copy; {{ 'now' | date: "%Y" }} Moriel Harush</p>
@@ -112,7 +269,7 @@
       </main>
 
       <footer>
-        <p>Built with <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+        <p>Built with <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a></p>
       </footer>
     </div>
 
@@ -120,11 +277,6 @@
 
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   <script>
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.querySelector('.sidebar-overlay').classList.toggle('active');
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
     // Strip width/height HTML attributes so CSS max-width works on mobile
     document.querySelectorAll('article img[width], article img[height]').forEach(function (img) {

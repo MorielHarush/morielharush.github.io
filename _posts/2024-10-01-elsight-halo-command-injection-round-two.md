@@ -6,6 +6,8 @@ cve: "CVE-2024-45251 / CVE-2024-45252"
 severity: "Critical"
 cvss: "9.8"
 affected: "Elsight Halo version 11.7.1.5"
+vendor: "Elsight"
+image: "/assets/images/covers/elsight-halo-command-injection-round-two.svg"
 ---
 
 Back in 2022, we found a critical RCE on the Elsight Halo drone communication chipset (CVE-2022-36784). The vendor patched it. We came back to verify the fix.

@@ -6,6 +6,8 @@ cve: "CVE-2024-47921"
 severity: "High"
 cvss: "8.4"
 affected: "Smadar SPS version 4.0.44.0.64"
+vendor: "Smadar"
+image: "/assets/images/covers/smadar-sps-weak-crypto-domain-takeover.svg"
 ---
 
 Supply chains often serve as the weakest link in advanced cyberattacks. During a security assessment for a client, we discovered how a smart printing system became a direct gateway to Domain Admin. A configuration file, a weak encryption algorithm, and a database password later - the entire domain was compromised.

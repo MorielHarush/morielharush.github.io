@@ -6,9 +6,9 @@ cve: "CVE-2025-46388"
 severity: "Medium"
 cvss: "4.3"
 affected: "Emby MediaBrowser version 4.9.0.35"
+vendor: "Emby"
+image: "/assets/images/covers/emby-mediabrowser-sensitive-information-exposure.svg"
 ---
-<img width="1024" height="752" src="/assets/images/embylogo.jpg" />
-
 Emby is a popular self-hosted media server platform used to organize, stream, and share personal media libraries across devices. It handles user authentication, access permissions, and sensitive media metadata, making its security posture critical.
 
 ## Vulnerability Details

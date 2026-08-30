@@ -6,6 +6,8 @@ cve: "CVE-2023-23458"
 severity: "Medium"
 cvss: "6.5"
 affected: "Sunell DVR"
+vendor: "Sunell"
+image: "/assets/images/covers/sunell-dvr-credential-exposure.svg"
 ---
 
 Sunell is a manufacturer of surveillance and security equipment including DVR (Digital Video Recorder) systems used for CCTV recording and playback in commercial and residential environments.

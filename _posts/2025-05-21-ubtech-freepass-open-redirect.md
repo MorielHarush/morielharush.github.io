@@ -6,9 +6,9 @@ cve: "CVE-2025-23183"
 severity: "Medium"
 cvss: "6.1"
 affected: "UBtech Freepass version 1.3.1807.1500"
+vendor: "UBtech"
+image: "/assets/images/covers/ubtech-freepass-open-redirect.svg"
 ---
-<img width="720" height="400" src="/assets/images/ubtechlogo.jpg" />
-
 UBtech Freepass is an access management platform used for authentication and user session handling. During our assessment, we identified an Open Redirect vulnerability that allows an attacker to redirect users from the trusted application domain to any external site.
 
 ## Vulnerability Details

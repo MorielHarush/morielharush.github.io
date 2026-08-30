@@ -6,6 +6,8 @@ cve: "CVE-2022-23169"
 severity: "High"
 cvss: "7.2"
 affected: "Amodat Mobile Application Gateway"
+vendor: "Amodat"
+image: "/assets/images/covers/amodat-sql-injection-error-based.svg"
 ---
 
 Amodat Mobile Application Gateway (MAG) is a mobile workforce management platform used by organizations to manage field operations, employee tasks, and mobile access to enterprise systems.

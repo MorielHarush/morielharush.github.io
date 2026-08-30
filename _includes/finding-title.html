@@ -1,0 +1,21 @@
+{%- comment -%}
+  Advisory titles read "CVE-x: Product - Description". The CVE and vendor are
+  displayed separately everywhere we use this, so strip both prefixes and output
+  just the description. Research titles have neither, so this is a no-op there.
+
+  Usage: {% capture label %}{% include finding-title.html post=post %}{% endcapture %}
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign disp = p.title -%}
+{%- if p.cve and disp contains p.cve -%}
+  {%- assign disp = disp | remove_first: p.cve | remove_first: ":" | strip -%}
+{%- endif -%}
+{%- assign parts = disp | split: " - " -%}
+{%- if parts.size > 1 -%}
+  {%- assign lead = parts[0] -%}
+  {%- assign lead_len = lead | size -%}
+  {%- if lead_len < 60 -%}
+    {%- assign disp = disp | remove_first: lead | remove_first: " - " -%}
+  {%- endif -%}
+{%- endif -%}
+{{- disp -}}

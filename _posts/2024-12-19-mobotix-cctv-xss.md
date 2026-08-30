@@ -6,6 +6,8 @@ cve: "CVE-2024-47917"
 severity: "High"
 cvss: "7.5"
 affected: "Mobotix CCTV FW version MX-V3.4.2.16"
+vendor: "Mobotix"
+image: "/assets/images/covers/mobotix-cctv-xss.svg"
 ---
 
 Mobotix is a manufacturer of IP-based CCTV and surveillance camera systems widely deployed in enterprise and government environments. The web-based management interface allows administrators to configure camera settings, view feeds, and manage access controls.

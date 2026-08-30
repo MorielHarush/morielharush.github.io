@@ -3,10 +3,11 @@ layout: post
 title: "Securing the Core, Ignoring the Door: The Repo Trust Trap"
 date: 2026-02-23
 category: research
+topics: ["Supply Chain", "Developer Tooling"]
 tags: ["command-injection", "CI/CD", "supply-chain", "CWE-78", "developer-tools"]
 ---
 
-<img width="952" height="461" alt="image" src="https://github.com/user-attachments/assets/ef588494-c351-47a4-b1d5-75212f5cda54" />
+<img width="952" height="461" alt="image" src="/assets/images/trusted-by-default-dangerous-by-design-1.png" />
 
 
 > **TL;DR** I found OS Command Injection (CWE-78) in the *developer tooling* of two widely-used open-source projects: Envoy (CNCF graduated, powers Istio) and CASL (popular JS authorization library). Neither vulnerability was in the core product. Both lived in scripts and examples that developers copy into their own CI/CD pipelines without a second thought. A single malicious pull request, no human approval required, was enough to get arbitrary code execution on a CI runner with access to deployment secrets.
@@ -94,9 +95,9 @@ A single pull request. Root on CI. Keys to the kingdom.
 
 I built a self-contained Docker-based PoC that simulates a CI runner processing a file with a crafted filename. The results speak for themselves:
 
-<img width="816" height="659" alt="image" src="https://github.com/user-attachments/assets/7e21ac83-2e68-472c-904b-3f7cd6254596" />
+<img width="816" height="659" alt="image" src="/assets/images/trusted-by-default-dangerous-by-design-2.png" />
 
-<img width="750" height="244" alt="image" src="https://github.com/user-attachments/assets/3deb5674-970a-4570-97ee-58215cc153c6" />
+<img width="750" height="244" alt="image" src="/assets/images/trusted-by-default-dangerous-by-design-3.png" />
 
 Root-level execution on the CI runner. From a filename.
 
@@ -135,7 +136,7 @@ The `git` command runs normally, then `whoami` executes, and `#` comments out th
 
 ### Proof of Concept
 
-<img width="873" height="105" alt="image" src="https://github.com/user-attachments/assets/66a4cc13-5528-4b87-97cb-663c173b284b" />
+<img width="873" height="105" alt="image" src="/assets/images/trusted-by-default-dangerous-by-design-4.png" />
 
 ### Why This Matters
 

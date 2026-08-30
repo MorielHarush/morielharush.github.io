@@ -6,6 +6,8 @@ cve: "CVE-2023-31186"
 severity: "Medium"
 cvss: "5.3"
 affected: "Avaya IX Workforce Engagement v15.2.7.1195"
+vendor: "Avaya"
+image: "/assets/images/covers/avaya-ix-user-enumeration.svg"
 ---
 
 Avaya IX Workforce Engagement is an enterprise workforce management platform used for call recording, quality management, and agent performance analytics in contact centers.

@@ -6,6 +6,8 @@ cve: "CVE-2024-42343"
 severity: "High"
 cvss: "7.5"
 affected: "Loway QueueMetrics 17.06.1 - 22.02.11"
+vendor: "Loway"
+image: "/assets/images/covers/loway-queuemetrics-user-enumeration.svg"
 ---
 
 Loway QueueMetrics is a call center monitoring and reporting platform used to track agent performance, queue statistics, and call analytics. It is widely deployed in enterprise contact centers.

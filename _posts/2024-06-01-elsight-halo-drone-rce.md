@@ -6,9 +6,9 @@ cve: "CVE-2022-36784"
 severity: "Critical"
 cvss: "9.8"
 affected: "Elsight Halo Chipset"
+vendor: "Elsight"
+image: "/assets/images/covers/elsight-halo-drone-rce.svg"
 ---
-
-<img width="1600" height="521" alt="image" src="https://github.com/user-attachments/assets/d65df733-04d3-4cc8-ae08-957f8403e1e4" />
 
 There's a particular kind of dread that hits you when a shell prompt comes back as `root` — and the device on the other end is a communication chipset embedded in military and law enforcement drones.
 
@@ -32,7 +32,7 @@ Instead, we found it **accessible from the public internet**. No VPN. No IP whit
 
 And the credentials? **Default. Unchanged. As shipped from the factory.**
 
-<img width="1764" height="941" alt="image" src="https://github.com/user-attachments/assets/4726bfa6-ce66-4859-ba8b-fccb7abcca9f" />
+<img width="1764" height="941" alt="image" src="/assets/images/elsight-halo-drone-rce-2.png" />
 
 *Default credentials granting access to the Halo management interface.*
 
@@ -60,7 +60,7 @@ We injected a simple identity command to confirm execution context. The response
 
 **We were root.**
 
-<img width="1532" height="426" alt="image" src="https://github.com/user-attachments/assets/48a9eb44-126d-4f52-bdcf-a0130924d43c" />
+<img width="1532" height="426" alt="image" src="/assets/images/elsight-halo-drone-rce-3.png" />
 
 *Command execution confirmed — running as root on the Elsight Halo.*
 

@@ -1,0 +1,40 @@
+{%- comment -%}
+  Resolves a post's preview image and outputs the URL, or nothing if there is none.
+
+  Order: explicit `image:` front matter, then the first *image* referenced in the
+  body (HTML src, then markdown ![]()). The extension check matters -- posts that
+  open with a <video> would otherwise hand back an .mp4, which the card would then
+  load into an <img> tag.
+
+  Usage: {% capture src %}{% include post-image-src.html post=post %}{% endcapture %}
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign ok_exts = "png,jpg,jpeg,gif,webp,svg,avif" | split: "," -%}
+{%- assign found = "" -%}
+
+{%- if p.image -%}
+  {%- assign found = p.image | relative_url -%}
+{%- else -%}
+  {%- assign chunks = p.content | split: 'src="' -%}
+  {%- for c in chunks offset: 1 -%}
+    {%- assign cand = c | split: '"' | first -%}
+    {%- assign ext = cand | split: '.' | last | downcase -%}
+    {%- if ok_exts contains ext -%}
+      {%- assign found = cand -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if found == "" -%}
+    {%- assign md_chunks = p.content | split: '![' -%}
+    {%- for c in md_chunks offset: 1 -%}
+      {%- assign cand = c | split: '(' | last | split: ')' | first -%}
+      {%- assign ext = cand | split: '.' | last | downcase -%}
+      {%- if ok_exts contains ext -%}
+        {%- assign found = cand -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+{{- found -}}

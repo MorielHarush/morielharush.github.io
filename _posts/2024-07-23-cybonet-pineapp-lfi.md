@@ -6,6 +6,8 @@ cve: "CVE-2024-41695"
 severity: "High"
 cvss: "7.5"
 affected: "PineApp Mail Relay"
+vendor: "Cybonet"
+image: "/assets/images/covers/cybonet-pineapp-lfi.svg"
 ---
 
 PineApp Mail Relay by Cybonet is an email security gateway used by organizations to filter, relay, and manage email traffic. It provides spam filtering, antivirus scanning, and email policy enforcement.

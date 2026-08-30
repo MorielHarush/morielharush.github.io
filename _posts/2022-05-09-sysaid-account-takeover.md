@@ -6,6 +6,8 @@ cve: "CVE-2022-22796"
 severity: "Critical"
 cvss: "9.8"
 affected: "SysAid"
+vendor: "SysAid"
+image: "/assets/images/covers/sysaid-account-takeover.svg"
 ---
 
 SysAid is a widely used IT service management (ITSM) platform that provides helpdesk, asset management, and IT automation capabilities for organizations.

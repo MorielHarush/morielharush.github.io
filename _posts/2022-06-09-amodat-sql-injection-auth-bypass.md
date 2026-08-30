@@ -6,6 +6,8 @@ cve: "CVE-2022-23168"
 severity: "Critical"
 cvss: "9.8"
 affected: "Amodat Mobile Application Gateway"
+vendor: "Amodat"
+image: "/assets/images/covers/amodat-sql-injection-auth-bypass.svg"
 ---
 
 Amodat Mobile Application Gateway (MAG) is a mobile workforce management platform used by organizations to manage field operations, employee tasks, and mobile access to enterprise systems.
@@ -20,7 +22,7 @@ The login form's username field is vulnerable to SQL injection, allowing a compl
 admin'--
 ```
 
-<img width="1024" alt="SQL injection auth bypass with admin'-- in the username field" src="/assets/images/Amodat-CVE-2022-23168.jpg" />
+<img width="1024" alt="SQL injection auth bypass with admin'-- in the username field" src="/assets/images/Amodat-CVE-2022-23168.png" />
 
 *The login page with `admin'--` in the username field - the single quote closes the SQL string and the double dash comments out the password check. The attacker is authenticated as admin.*
 

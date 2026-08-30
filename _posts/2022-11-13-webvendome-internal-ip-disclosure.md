@@ -6,6 +6,8 @@ cve: "CVE-2022-39178"
 severity: "Medium"
 cvss: "5.3"
 affected: "WebVendome"
+vendor: "WebVendome"
+image: "/assets/images/covers/webvendome-internal-ip-disclosure.svg"
 ---
 
 WebVendome is a web-based document management and business process platform.

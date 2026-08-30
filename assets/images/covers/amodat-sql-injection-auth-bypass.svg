@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="CVE-2022-23168: SQL Injection Authentication Bypass. Severity Critical, CVSS 9.8. Affected: Amodat Mobile Application Gateway.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="975" cy="250" rx="290" ry="215" fill="url(#glow)"/>
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">CVE-2022-23168 · CRITICAL</text>
+    <text x="80" y="220" font-size="62" font-weight="800" letter-spacing="-1" fill="#e6edf3">SQL INJECTION</text>
+    <rect x="80" y="260" width="72" height="4" rx="2" fill="#ef4444"/>
+    <text x="80" y="306" font-size="25" font-weight="500" fill="#8b949e">SQL Injection Authentication Bypass</text>
+    <text x="80" y="352" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">Amodat Mobile Application Gateway</text>
+    <rect x="838" y="150" width="282" height="200" rx="18" fill="#ef4444" fill-opacity="0.07" stroke="#ef4444" stroke-opacity="0.45" stroke-width="2"/>
+    <text x="979" y="268" font-size="88" font-weight="800" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono','Consolas',monospace">9.8</text>
+    <text x="979" y="300" font-size="17" font-weight="700" letter-spacing="4" text-anchor="middle" fill="#8b949e">CVSS</text>
+    <rect x="879" y="318" width="200" height="6" rx="3" fill="#ffffff" fill-opacity="0.10"/>
+    <rect x="879" y="318" width="196" height="6" rx="3" fill="#ef4444"/>
+  </g>
+</svg>

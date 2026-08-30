@@ -6,6 +6,8 @@ cve: "CVE-2023-42495"
 severity: "Critical"
 cvss: "9.8"
 affected: "Dasan Networks W-Web versions 1.22-1.27"
+vendor: "Dasan Networks"
+image: "/assets/images/covers/dasan-networks-command-injection.svg"
 ---
 
 Dasan Networks W-Web is a web-based management interface used to configure and manage Dasan network devices. Versions 1.22 through 1.27 are affected by a critical command injection vulnerability in the login form itself.

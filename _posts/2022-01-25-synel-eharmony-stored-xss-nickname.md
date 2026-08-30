@@ -6,6 +6,8 @@ cve: "CVE-2022-22791"
 severity: "Medium"
 cvss: "6.1"
 affected: "Synel eHarmony version 8.0.2.3"
+vendor: "Synel"
+image: "/assets/images/covers/synel-eharmony-stored-xss-nickname.svg"
 ---
 
 Synel eHarmony is a workforce management and time attendance platform used by organizations to manage employee records, scheduling, and HR processes.
@@ -16,7 +18,7 @@ Synel eHarmony is a workforce management and time attendance platform used by or
 
 A Blind Stored XSS vulnerability exists in the Nickname text box within the eHarmony application. An attacker can inject a JavaScript payload into the nickname field that persists in the system and executes whenever another user views the profile.
 
-<img width="1024" alt="XSS payload injected into the nickname field" src="/assets/images/Harmony-CVE-22791.png" />
+<img width="1024" alt="XSS payload injected into the nickname field" src="/assets/images/Harmony-CVE-2022-22791.png" />
 
 *The XSS payload injected into the Nickname text box - the payload is stored and executes for every user who views the profile.*
 

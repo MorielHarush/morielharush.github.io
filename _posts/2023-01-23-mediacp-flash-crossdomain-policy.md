@@ -6,6 +6,8 @@ cve: "CVE-2023-23464"
 severity: "High"
 cvss: "8.1"
 affected: "Media CP Media Control Panel"
+vendor: "MediaCP"
+image: "/assets/images/covers/mediacp-flash-crossdomain-policy.svg"
 ---
 
 Media CP is a web-based media hosting control panel used to manage streaming services, media servers, and user accounts.

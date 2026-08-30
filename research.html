@@ -1,0 +1,26 @@
+---
+layout: default
+title: Research
+permalink: /research/
+---
+
+{% assign research = site.posts | where: "category", "research" %}
+
+<div class="page-header">
+  <h1>Research</h1>
+</div>
+
+<section class="index-section" id="section-research">
+  <div class="table-toolbar">
+    <span class="result-count" id="result-count" data-noun="posts"></span>
+    <button type="button" class="clear-filters" id="clear-filters" hidden>Clear filters</button>
+  </div>
+
+  <div class="post-grid">
+    {% for post in research %}
+      {% include post-card.html post=post filterable=true show_topics=true %}
+    {% endfor %}
+  </div>
+
+  <p class="section-empty" hidden>No research posts match these filters.</p>
+</section>

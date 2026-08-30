@@ -1,0 +1,48 @@
+{%- comment -%}
+  Card for one post. Advisory titles read "CVE-x: Product - Description"; the CVE
+  and vendor are shown in the meta row, so trim both prefixes off the heading.
+  Research titles have neither prefix, so the trim is a no-op for them.
+
+  Params:
+    post        the post to render (required)
+    filterable  emit the class + data-* attributes search.js filters on
+    show_tags   render the post's tags under the excerpt
+
+  Usage: {% include post-card.html post=post filterable=true show_tags=true %}
+{%- endcomment -%}
+{% assign post = include.post %}
+{% capture disp %}{% include finding-title.html post=post %}{% endcapture %}
+
+<a href="{{ post.url | relative_url }}" class="card{% if include.filterable %} filterable{% endif %}"
+   {%- if include.filterable %}
+   {%- comment -%} Topics are multi-valued, so they ship pipe-delimited. {%- endcomment -%}
+   data-topic="{{ post.topics | join: '|' }}"
+   data-year="{{ post.date | date: '%Y' }}"
+   data-severity="{{ post.severity }}"
+   data-vendor="{{ post.vendor }}"
+   data-text="{{ post.title | append: ' ' | append: post.cve | append: ' ' | append: post.vendor | append: ' ' | append: post.affected | append: ' ' | append: post.tags | downcase | escape }}"
+   {%- endif %}>
+  {% capture card_img %}{% include post-image-src.html post=post %}{% endcapture %}
+  <div class="card-image">
+    {% if card_img != "" %}
+      <img src="{{ card_img }}" alt="{{ post.title }}" loading="lazy">
+    {% else %}
+      <div class="card-placeholder"></div>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <div class="card-meta">
+      <span>{{ post.date | date: "%b %d, %Y" }}</span>
+      {% if post.vendor %}<span class="card-vendor">{{ post.vendor }}</span>{% endif %}
+      {% if post.cve %}<span class="mono">{{ post.cve }}</span>{% endif %}
+      {% if post.severity %}<span class="badge badge-{{ post.severity | downcase }}">{{ post.severity }}</span>{% endif %}
+    </div>
+    <h3 class="card-title">{{ disp }}</h3>
+    <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 22 }}</p>
+    {% if include.show_topics and post.topics.size > 0 %}
+    <div class="card-tags">
+      {% for t in post.topics %}<span class="card-tag">{{ t }}</span>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</a>

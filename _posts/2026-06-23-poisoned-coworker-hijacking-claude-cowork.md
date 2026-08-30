@@ -3,6 +3,8 @@ layout: post
 title: "Poisoned Coworker: Hijacking Claude Cowork"
 date: 2026-06-23
 category: research
+image: "/assets/images/poisoned-coworker-cover.svg"
+topics: ["AI Agents"]
 tags: ["AI-security", "claude-cowork", "sandbox", "PreToolUse-hook", "session-hijacking", "agent-security"]
 ---
 

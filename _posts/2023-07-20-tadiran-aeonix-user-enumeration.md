@@ -6,6 +6,8 @@ cve: "CVE-2023-37217"
 severity: "Medium"
 cvss: "5.3"
 affected: "Tadiran Telecom Aeonix"
+vendor: "Tadiran Telecom"
+image: "/assets/images/covers/tadiran-aeonix-user-enumeration.svg"
 ---
 
 Tadiran Telecom Aeonix is a unified communications platform used by enterprises for VoIP, call management, and telephony services. It is widely deployed in corporate and government environments.

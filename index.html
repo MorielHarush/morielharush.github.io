@@ -3,146 +3,125 @@ layout: default
 title: Home
 ---
 
-<!-- Hero: Latest post -->
+{% assign advisories = site.posts | where: "category", "advisory" %}
+{% assign research   = site.posts | where: "category", "research" %}
+{%- comment -%}
+  These tiles and chips all link into /advisories/, so they count advisories only --
+  otherwise a number here would not match the rows you land on. One post carries
+  cve: "CVE Reserved", so match assigned ids only.
+{%- endcomment -%}
+{% assign with_cve   = advisories | where_exp: "p", "p.cve contains 'CVE-'" %}
+{% assign critical   = advisories | where: "severity", "Critical" %}
+{% assign high       = advisories | where: "severity", "High" %}
+{% assign vendored   = advisories | where_exp: "p", "p.vendor" %}
+{% assign vgroups    = vendored | group_by: "vendor" | sort: "size" | reverse %}
+{% assign oldest     = site.posts | last %}
+
+<!-- Summary strip. Each tile is a way into the advisory index. -->
+<div class="stats-strip">
+  <a class="stat" href="{{ '/advisories/' | relative_url }}">
+    <span class="stat-num">{{ with_cve.size }}</span>
+    <span class="stat-label">CVEs</span>
+  </a>
+  <a class="stat" href="{{ '/advisories/' | relative_url }}">
+    <span class="stat-num">{{ vgroups.size }}</span>
+    <span class="stat-label">Vendors</span>
+  </a>
+  <a class="stat" href="{{ '/advisories/' | relative_url }}?severity=Critical">
+    <span class="stat-num stat-crit">{{ critical.size }}</span>
+    <span class="stat-label">Critical</span>
+  </a>
+  <a class="stat" href="{{ '/advisories/' | relative_url }}?severity=High">
+    <span class="stat-num stat-high">{{ high.size }}</span>
+    <span class="stat-label">High</span>
+  </a>
+  <a class="stat" href="{{ '/research/' | relative_url }}">
+    <span class="stat-num">{{ research.size }}</span>
+    <span class="stat-label">Research</span>
+  </a>
+  <div class="stat stat-span">
+    <span class="stat-num">{{ oldest.date | date: "%Y" }}&ndash;{{ site.time | date: "%Y" }}</span>
+    <span class="stat-label">Disclosing since</span>
+  </div>
+</div>
+
+<!-- Browse by vendor -->
+<div class="vendor-strip">
+  <span class="vendor-strip-label">Vendors</span>
+  {% for g in vgroups limit: 8 %}
+  <a class="vendor-chip" href="{{ '/advisories/' | relative_url }}?vendor={{ g.name | uri_escape }}">
+    {{ g.name }}<span class="vendor-chip-count">{{ g.size }}</span>
+  </a>
+  {% endfor %}
+  <a class="vendor-chip vendor-chip-all" href="{{ '/advisories/' | relative_url }}">All {{ vgroups.size }} &rarr;</a>
+</div>
+
+<!-- Featured: newest post -->
 {% assign latest = site.posts | first %}
 {% if latest %}
 <a href="{{ latest.url | relative_url }}" class="hero-card">
+  {% capture hero_src %}{% include post-image-src.html post=latest %}{% endcapture %}
   <div class="hero-image">
-    {% assign hero_img = latest.content | split: 'src="' %}
-    {% if hero_img.size > 1 %}
-      {% assign hero_src = hero_img[1] | split: '"' | first %}
+    {% if hero_src != "" %}
       <img src="{{ hero_src }}" alt="{{ latest.title }}">
     {% else %}
-      {% assign hero_md = latest.content | split: '![' %}
-      {% if hero_md.size > 1 %}
-        {% assign hero_md_src = hero_md[1] | split: '(' | last | split: ')' | first %}
-        <img src="{{ hero_md_src }}" alt="{{ latest.title }}">
-      {% else %}
-        <div class="hero-placeholder"></div>
-      {% endif %}
+      <div class="hero-placeholder"></div>
     {% endif %}
   </div>
   <div class="hero-body">
     <div class="hero-meta">
-      <span class="hero-label">Latest Research</span>
+      <span class="hero-label">Latest</span>
       <span class="hero-date">{{ latest.date | date: "%B %d, %Y" }}</span>
     </div>
     <h2 class="hero-title">{{ latest.title }}</h2>
     <p class="hero-excerpt">{{ latest.excerpt | strip_html | truncatewords: 40 }}</p>
     <div class="hero-tags">
       {% if latest.cve %}<span class="hero-tag">{{ latest.cve }}</span>{% endif %}
-      {% if latest.severity %}
-        {% if latest.severity == "Critical" %}
-          <span class="badge badge-critical">{{ latest.severity }}</span>
-        {% elsif latest.severity == "High" %}
-          <span class="badge badge-high">{{ latest.severity }}</span>
-        {% elsif latest.severity == "Medium" %}
-          <span class="badge badge-medium">{{ latest.severity }}</span>
-        {% else %}
-          <span class="badge badge-low">{{ latest.severity }}</span>
-        {% endif %}
-      {% endif %}
+      {% if latest.severity %}<span class="badge badge-{{ latest.severity | downcase }}">{{ latest.severity }}</span>{% endif %}
       {% if latest.affected %}<span class="hero-tag">{{ latest.affected }}</span>{% endif %}
     </div>
   </div>
 </a>
 {% endif %}
 
-<!-- Section: Research -->
-{% assign research_posts = site.posts | where: "category", "research" %}
-{% if research_posts.size > 0 %}
-<div class="section-header">
-  <h2>Research</h2>
-  <p>Deep dives into real-world security research, IoT hacking, and attack chain analysis.</p>
-</div>
+<!-- Research -->
+{% if research.size > 0 %}
+<section class="index-section" id="research">
+  <div class="section-header">
+    <h2>Research</h2>
+    <p>Deep dives into real-world security research, IoT hacking, and attack chain analysis.</p>
+  </div>
 
-<div class="post-grid">
-  {% for post in research_posts %}
-  <a href="{{ post.url | relative_url }}" class="card">
-    <div class="card-image">
-      {% assign img = post.content | split: 'src="' %}
-      {% if img.size > 1 %}
-        {% assign img_src = img[1] | split: '"' | first %}
-        <img src="{{ img_src }}" alt="{{ post.title }}" loading="lazy">
-      {% else %}
-        {% assign img_md = post.content | split: '![' %}
-        {% if img_md.size > 1 %}
-          {% assign img_md_src = img_md[1] | split: '(' | last | split: ')' | first %}
-          <img src="{{ img_md_src }}" alt="{{ post.title }}" loading="lazy">
-        {% else %}
-          <div class="card-placeholder"></div>
-        {% endif %}
-      {% endif %}
-    </div>
-    <div class="card-body">
-      <div class="card-meta">
-        <span>{{ post.date | date: "%B %d, %Y" }}</span>
-        {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
-        {% if post.severity %}
-          {% if post.severity == "Critical" %}
-            <span class="badge badge-critical">{{ post.severity }}</span>
-          {% elsif post.severity == "High" %}
-            <span class="badge badge-high">{{ post.severity }}</span>
-          {% elsif post.severity == "Medium" %}
-            <span class="badge badge-medium">{{ post.severity }}</span>
-          {% else %}
-            <span class="badge badge-low">{{ post.severity }}</span>
-          {% endif %}
-        {% endif %}
-      </div>
-      <h3 class="card-title">{{ post.title }}</h3>
-      <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 22 }}</p>
-    </div>
+  <div class="post-grid">
+    {% for post in research limit: 4 %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+
+  {% if research.size > 4 %}
+  <a class="view-all" href="{{ '/research/' | relative_url }}">
+    View all {{ research.size }} research posts
+    <span class="view-all-arrow">&rarr;</span>
   </a>
-  {% endfor %}
-</div>
+  {% endif %}
+</section>
 {% endif %}
 
-<!-- Section: Advisories -->
-<div class="section-header">
-  <h2>Security Advisories</h2>
-  <p>Vulnerability research, CVE writeups, and responsible disclosures.</p>
-</div>
+<!-- Recent advisories -->
+<section class="index-section" id="advisories">
+  <div class="section-header">
+    <h2>Recent Advisories</h2>
+    <p>The six newest disclosures. The full index is filterable by severity, vendor and year.</p>
+  </div>
 
-<div class="post-grid">
-  {% for post in site.posts %}
-    {% unless post.category == "research" %}
-  <a href="{{ post.url | relative_url }}" class="card">
-    <div class="card-image">
-      {% assign img = post.content | split: 'src="' %}
-      {% if img.size > 1 %}
-        {% assign img_src = img[1] | split: '"' | first %}
-        <img src="{{ img_src }}" alt="{{ post.title }}" loading="lazy">
-      {% else %}
-        {% assign img_md = post.content | split: '![' %}
-        {% if img_md.size > 1 %}
-          {% assign img_md_src = img_md[1] | split: '(' | last | split: ')' | first %}
-          <img src="{{ img_md_src }}" alt="{{ post.title }}" loading="lazy">
-        {% else %}
-          <div class="card-placeholder"></div>
-        {% endif %}
-      {% endif %}
-    </div>
-    <div class="card-body">
-      <div class="card-meta">
-        <span>{{ post.date | date: "%B %d, %Y" }}</span>
-        {% if post.cve %}<span>{{ post.cve }}</span>{% endif %}
-        {% if post.severity %}
-          {% if post.severity == "Critical" %}
-            <span class="badge badge-critical">{{ post.severity }}</span>
-          {% elsif post.severity == "High" %}
-            <span class="badge badge-high">{{ post.severity }}</span>
-          {% elsif post.severity == "Medium" %}
-            <span class="badge badge-medium">{{ post.severity }}</span>
-          {% else %}
-            <span class="badge badge-low">{{ post.severity }}</span>
-          {% endif %}
-        {% endif %}
-      </div>
-      <h3 class="card-title">{{ post.title }}</h3>
-      <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 22 }}</p>
-    </div>
+  <div class="post-grid">
+    {% for post in advisories limit: 6 %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+
+  <a class="view-all" href="{{ '/advisories/' | relative_url }}">
+    View all {{ advisories.size }} advisories
+    <span class="view-all-arrow">&rarr;</span>
   </a>
-    {% endunless %}
-  {% endfor %}
-</div>
+</section>

@@ -6,6 +6,8 @@ cve: "CVE-2022-36778"
 severity: "Medium"
 cvss: "6.5"
 affected: "Synel eHarmony"
+vendor: "Synel"
+image: "/assets/images/covers/synel-eharmony-stored-xss.svg"
 ---
 
 Synel eHarmony is a workforce management and time attendance platform used by organizations to manage employee records, documents, and HR processes.

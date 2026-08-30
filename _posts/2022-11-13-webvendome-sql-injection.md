@@ -6,6 +6,8 @@ cve: "CVE-2022-36787"
 severity: "Critical"
 cvss: "9.8"
 affected: "WebVendome"
+vendor: "WebVendome"
+image: "/assets/images/covers/webvendome-sql-injection.svg"
 ---
 
 WebVendome is a web-based document management and business process platform.

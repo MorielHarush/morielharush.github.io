@@ -5,10 +5,10 @@ date: 2026-05-03
 cve: "CVE Reserved"
 severity: "High"
 affected: "Todoist for Chrome <= 12.21.3"
+vendor: "Todoist"
 tags: ["CWE-601", "open-redirect", "chrome-extension", "postMessage", "tab-hijack"]
+image: "/assets/images/covers/todoist-chrome-extension-open-redirect-tab-hijack.svg"
 ---
-
-<img width="1024" alt="Todoist for Chrome — Tab Hijack" src="/assets/images/TodoistBlog.png" />
 
 [Todoist for Chrome](https://chromewebstore.google.com/detail/todoist-for-chrome/jldhpllghnbhlbpcmnajkpdmadaolakh) is the official browser extension from [Doist](https://doist.com/) for the Todoist task manager, with over 3 million users on the Chrome Web Store. The extension exposes its popup as a web-accessible resource and listens for `postMessage` events from the embedded Todoist web app — but it does so without validating the message origin or the URL it is told to navigate to.
 

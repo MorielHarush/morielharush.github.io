@@ -6,6 +6,8 @@ cve: "CVE-2024-45253"
 severity: "High"
 cvss: "7.5"
 affected: "Avigilon VideoIQ iCVR HD camera"
+vendor: "Avigilon"
+image: "/assets/images/covers/avigilon-videoiq-path-traversal.svg"
 ---
 
 Avigilon VideoIQ iCVR HD is an IP-based surveillance camera used in enterprise and commercial security deployments. The camera exposes a web interface for configuration and management.
