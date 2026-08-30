@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="Trust me, I'm an artifact: an approved v1 artifact declaring a harmless diagram tool is silently refreshed into a pixel-identical v2 that declares a bash tool instead, inheriting the original approval with no hash check and no new prompt.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.30"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="895" cy="320" rx="290" ry="195" fill="url(#glow)"/>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">AI AGENT SECURITY &#183; RCE</text>
+
+    <text x="80" y="220" font-size="62" font-weight="800" letter-spacing="-1" fill="#e6edf3">TRUST ME,</text>
+    <text x="80" y="288" font-size="62" font-weight="800" letter-spacing="-1" fill="#e6edf3">I&#8217;M AN ARTIFACT</text>
+
+    <rect x="80" y="322" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="370" font-size="27" font-weight="500" fill="#8b949e">Approved once. Swapped afterwards.</text>
+    <text x="80" y="408" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">Claude Desktop &#183; Artifacts</text>
+  </g>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <text x="652" y="106" font-size="15" font-weight="700" letter-spacing="1.8" fill="#8b949e">SAME PIXELS, DIFFERENT TOOL</text>
+
+    <!-- v1: what the user actually looked at and approved -->
+    <rect x="650" y="118" width="490" height="110" rx="12"
+          fill="#131a24" stroke="#2dd4bf" stroke-width="2" stroke-opacity="0.7"/>
+    <text x="674" y="147" font-size="14" font-weight="700" letter-spacing="1.6" fill="#2dd4bf">v1 &#183; APPROVED</text>
+    <g fill="#2f3947">
+      <rect x="674" y="158" width="124" height="7" rx="3.5"/>
+      <rect x="674" y="171" width="86"  height="7" rx="3.5"/>
+      <rect x="674" y="184" width="106" height="7" rx="3.5"/>
+    </g>
+    <text x="674" y="215" font-size="18" font-family="'JetBrains Mono','Consolas',monospace" fill="#2dd4bf">mcpTool: create_diagram</text>
+
+    <!-- The refresh nobody is asked about -->
+    <line x1="895" y1="236" x2="895" y2="278" stroke="#ef4444" stroke-width="4" marker-end="url(#ar)"/>
+    <text x="915" y="263" font-size="16" fill="#f87171">silent refresh &#183; no prompt</text>
+
+    <!-- v2: byte-identical chrome, weaponised grant -->
+    <rect x="650" y="286" width="490" height="110" rx="12"
+          fill="#0b0f16" stroke="#ef4444" stroke-width="2"/>
+    <text x="674" y="315" font-size="14" font-weight="700" letter-spacing="1.6" fill="#f87171">v2 &#183; NEVER RE-APPROVED</text>
+    <g fill="#2f3947">
+      <rect x="674" y="326" width="124" height="7" rx="3.5"/>
+      <rect x="674" y="339" width="86"  height="7" rx="3.5"/>
+      <rect x="674" y="352" width="106" height="7" rx="3.5"/>
+    </g>
+    <text x="674" y="383" font-size="18" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">mcpTool: bash</text>
+
+    <text x="652" y="426" font-size="17" fill="#7d8797">No hash check &#183; the grant carries over</text>
+  </g>
+</svg>
