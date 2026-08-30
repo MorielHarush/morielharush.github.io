@@ -32,6 +32,11 @@
   --sidebar-width: 290px;
   --radius: 10px;
   --radius-sm: 6px;
+  /* Preview slots letterbox onto this. Covers are exactly --cover-ratio so they
+     fill edge to edge and never show it; it only frames off-ratio screenshots,
+     so it follows the light theme rather than the covers' dark ground. */
+  --cover-bg: var(--bg-secondary);
+  --cover-ratio: 12 / 5;
 }
 
 * {
@@ -306,15 +311,16 @@ main {
 
 .hero-image {
   width: 100%;
-  height: 320px;
+  aspect-ratio: var(--cover-ratio);
   overflow: hidden;
-  background: var(--bg-secondary);
+  background: var(--cover-bg);
 }
 
 .hero-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain, not cover: nothing gets trimmed, whatever the source ratio. */
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 
@@ -440,15 +446,15 @@ main {
 
 .card-image {
   width: 100%;
-  height: 180px;
+  aspect-ratio: var(--cover-ratio);
   overflow: hidden;
-  background: var(--bg-secondary);
+  background: var(--cover-bg);
 }
 
 .card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 
@@ -1018,14 +1024,12 @@ footer a {
   }
 
   /* Hero */
-  .hero-image { height: 180px; }
   .hero-title { font-size: 1.2rem; }
   .hero-body { padding: 1rem 1.1rem; }
   .hero-excerpt { font-size: 0.88rem; }
   .hero-meta { gap: 0.5rem; }
 
   /* Cards */
-  .card-image { height: 140px; }
   .card-body { padding: 1rem; }
   .card-title { font-size: 0.92rem; }
   .card-excerpt { font-size: 0.8rem; }
@@ -1103,7 +1107,6 @@ footer a {
     padding-top: 3.5rem;
   }
 
-  .hero-image { height: 150px; }
   .hero-title { font-size: 1.1rem; }
   .hero-body { padding: 0.9rem; }
 
@@ -1502,7 +1505,7 @@ footer a {
 .adv-row {
   position: relative;
   display: grid;
-  grid-template-columns: 3px 96px minmax(0, 1fr) auto;
+  grid-template-columns: 3px 120px minmax(0, 1fr) auto;
   align-items: center;
   gap: 0 1.05rem;
   padding: 0.75rem 1.15rem 0.75rem 0;
@@ -1531,18 +1534,18 @@ footer a {
 
 .adv-thumb {
   position: relative;
-  width: 96px;
-  height: 62px;
+  width: 120px;
+  aspect-ratio: var(--cover-ratio);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--bg-secondary);
+  background: var(--cover-bg);
   flex-shrink: 0;
 }
 
 .adv-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 0.35s ease;
 }
@@ -1702,12 +1705,12 @@ footer a {
   .sort-control { width: 100%; overflow-x: auto; }
 
   .adv-row {
-    grid-template-columns: 3px 68px minmax(0, 1fr) auto;
+    grid-template-columns: 3px 92px minmax(0, 1fr) auto;
     gap: 0 0.8rem;
     padding: 0.7rem 0.85rem 0.7rem 0;
   }
 
-  .adv-thumb { width: 68px; height: 52px; }
+  .adv-thumb { width: 92px; }
 
   .adv-title {
     font-size: 0.88rem;

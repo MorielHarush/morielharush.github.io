@@ -7,9 +7,8 @@ severity: "High"
 cvss: "8.7"
 affected: "LiquidJS < 10.25.0"
 vendor: "LiquidJS"
+image: "/assets/images/liquidoverflow-cover.svg"
 ---
-<img width="1380" height="752" alt="image" src="/assets/images/liquidjs-path-traversal-86k-repos-at-risk-1.png" />
-
 Templating engines are the silent workhorses of the web. They sit between your data and your users, quietly rendering pages, emails, and layouts millions of times a day. We trust them implicitly — they're just string formatters, right? But when a templating engine starts reading files it was never supposed to touch, your "string formatter" becomes a full-blown intelligence asset for an attacker.
 
 This is the story of how a single path traversal flaw in **LiquidJS** — one of the most widely adopted JavaScript templating libraries — put over **86,000 repositories** and some of the biggest names in tech at risk.

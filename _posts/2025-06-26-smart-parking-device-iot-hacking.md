@@ -5,9 +5,8 @@ date: 2025-06-26
 category: research
 topics: ["IoT"]
 tags: ["IoT", "hacking", "RCE", "IDOR", "OTP bypass"]
+image: "/assets/images/smart-parking-cover.svg"
 ---
-<img width="720" height="720" alt="image" src="/assets/images/smart-parking-device-iot-hacking-1.png" />
-
 When I moved into my new apartment, I was excited. A fresh start, a great location, and — best of all — a private parking lot.
 
 There was just one small problem: the gate remote.

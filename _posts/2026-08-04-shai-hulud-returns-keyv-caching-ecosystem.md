@@ -8,9 +8,8 @@ affected: "keyv / cacheable npm family"
 vendor: "keyv"
 topics: ["Supply Chain"]
 tags: ["supply-chain", "npm", "shai-hulud", "keyv", "worm", "C2", "credential-harvesting"]
+image: "/assets/images/shai-hulud-cover.svg"
 ---
-
-<img width="1672" height="941" alt="Shai Hulud Returns — Keyv supply-chain attack" src="/assets/images/shai-hulud-returns-keyv-caching-ecosystem-1.png" />
 
 Originally published on [Bloom Security](https://bloom.security/blog/shai-hulud-returns-keyv-caching-ecosystem-self-replicating-npm-attack).
 

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="From gate opener to full control: rewriting the registration response from 350 to 200 bypasses the OTP check, then IDOR leads to control of every gate in the vendor's cloud fleet.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.26"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="895" cy="270" rx="300" ry="200" fill="url(#glow)"/>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">IOT RESEARCH</text>
+
+    <text x="80" y="220" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">GATE OPENER</text>
+    <text x="80" y="292" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">TO FLEET</text>
+
+    <rect x="80" y="326" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="374" font-size="27" font-weight="500" fill="#8b949e">One forged response opened every gate</text>
+    <text x="80" y="412" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">Cloud-connected gate controller</text>
+  </g>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <text x="652" y="104" font-size="15" font-weight="700" letter-spacing="1.8" fill="#8b949e">REGISTRATION RESPONSE</text>
+
+    <!-- What the server said, and what the client was told it said -->
+    <rect x="650" y="116" width="212" height="74" rx="12" fill="#131a24" stroke="#2dd4bf" stroke-width="1.6" stroke-opacity="0.6"/>
+    <text x="672" y="152" font-size="26" font-family="'JetBrains Mono','Consolas',monospace" fill="#2dd4bf">350</text>
+    <text x="672" y="176" font-size="14" fill="#6e7a8a">not authorized</text>
+
+    <line x1="874" y1="153" x2="916" y2="153" stroke="#ef4444" stroke-width="4" marker-end="url(#ar)"/>
+
+    <rect x="928" y="116" width="212" height="74" rx="12" fill="#0b0f16" stroke="#ef4444" stroke-width="2"/>
+    <text x="950" y="152" font-size="26" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">200</text>
+    <text x="950" y="176" font-size="14" fill="#f87171">authorized</text>
+
+    <line x1="895" y1="200" x2="895" y2="236" stroke="#ef4444" stroke-width="4" marker-end="url(#ar)"/>
+
+    <!-- The chain that followed -->
+    <g font-size="15" font-weight="600">
+      <rect x="650" y="246" width="152" height="44" rx="10" fill="#1b2432" stroke="#3d4552"/>
+      <text x="726" y="274" text-anchor="middle" fill="#c9d1d9">OTP BYPASS</text>
+      <rect x="819" y="246" width="152" height="44" rx="10" fill="#1b2432" stroke="#3d4552"/>
+      <text x="895" y="274" text-anchor="middle" fill="#c9d1d9">IDOR</text>
+      <rect x="988" y="246" width="152" height="44" rx="10" fill="#1b2432" stroke="#ef4444"/>
+      <text x="1064" y="274" text-anchor="middle" fill="#f87171">FLEET</text>
+    </g>
+
+    <!-- Every barrier in the estate, raised. The bar swings up and left of its
+         post, so the group sits low enough to clear the chips above it. -->
+    <g>
+      <g transform="translate(664,340)">
+        <rect x="0" y="0" width="10" height="52" rx="3" fill="#3d4552"/>
+        <g transform="rotate(-32 5 8)"><rect x="5" y="3" width="84" height="10" rx="5" fill="#f87171"/></g>
+      </g>
+      <g transform="translate(824,340)">
+        <rect x="0" y="0" width="10" height="52" rx="3" fill="#3d4552"/>
+        <g transform="rotate(-32 5 8)"><rect x="5" y="3" width="84" height="10" rx="5" fill="#f87171"/></g>
+      </g>
+      <g transform="translate(984,340)">
+        <rect x="0" y="0" width="10" height="52" rx="3" fill="#3d4552"/>
+        <g transform="rotate(-32 5 8)"><rect x="5" y="3" width="84" height="10" rx="5" fill="#f87171"/></g>
+      </g>
+    </g>
+
+    <text x="652" y="424" font-size="18" fill="#7d8797">Every gate in the vendor&#8217;s cloud, remotely</text>
+  </g>
+</svg>

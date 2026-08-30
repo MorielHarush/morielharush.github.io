@@ -5,10 +5,8 @@ date: 2026-02-23
 category: research
 topics: ["Supply Chain", "Developer Tooling"]
 tags: ["command-injection", "CI/CD", "supply-chain", "CWE-78", "developer-tools"]
+image: "/assets/images/repo-trust-trap-cover.svg"
 ---
-
-<img width="952" height="461" alt="image" src="/assets/images/trusted-by-default-dangerous-by-design-1.png" />
-
 
 > **TL;DR** I found OS Command Injection (CWE-78) in the *developer tooling* of two widely-used open-source projects: Envoy (CNCF graduated, powers Istio) and CASL (popular JS authorization library). Neither vulnerability was in the core product. Both lived in scripts and examples that developers copy into their own CI/CD pipelines without a second thought. A single malicious pull request, no human approval required, was enough to get arbitrary code execution on a CI runner with access to deployment secrets.
 

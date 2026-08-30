@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="Shai Hulud returns: a sandworm curled into a ring and biting its own tail, wrapped around an npm package - the self-replicating worm that steals a maintainer's npm token and republishes itself across the keyv and cacheable ecosystem.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.30"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="maw" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000000"/><stop offset="1" stop-color="#3f0d0d"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="892" cy="258" rx="285" ry="205" fill="url(#glow)"/>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">CRITICAL &#183; NPM WORM</text>
+
+    <text x="80" y="220" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">SHAI HULUD</text>
+    <text x="80" y="292" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">RETURNS</text>
+
+    <rect x="80" y="326" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="374" font-size="27" font-weight="500" fill="#8b949e">It steals your token, then ships itself</text>
+    <text x="80" y="412" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">keyv / cacheable &#183; 2B downloads / month</text>
+  </g>
+
+  <!-- The worm, curled back onto its own tail -->
+  <g>
+    <circle cx="825.2" cy="178.3" r="9.0" fill="#6b1414" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="815.5" cy="187.5" r="9.1" fill="#6c1514" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="807.2" cy="197.9" r="9.3" fill="#6e1614" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="800.2" cy="209.2" r="9.6" fill="#711814" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="794.7" cy="221.3" r="9.8" fill="#731914" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="790.8" cy="234.0" r="10.1" fill="#751b14" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="786.7" cy="233.0" r="3.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="788.6" cy="247.1" r="10.4" fill="#781c14" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="784.2" cy="246.7" r="3.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="788.0" cy="260.4" r="10.8" fill="#7a1e14" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="783.5" cy="260.5" r="3.7" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="789.2" cy="273.7" r="11.1" fill="#7d2014" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="784.6" cy="274.4" r="3.8" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="792.0" cy="286.7" r="11.5" fill="#802214" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="787.4" cy="288.0" r="3.9" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="796.5" cy="299.2" r="11.9" fill="#822414" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="791.9" cy="301.2" r="4.0" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="802.5" cy="311.0" r="12.3" fill="#852614" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="798.1" cy="313.7" r="4.2" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="810.0" cy="322.0" r="12.7" fill="#882714" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="805.8" cy="325.3" r="4.3" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="818.9" cy="332.0" r="13.1" fill="#8b2914" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="815.0" cy="335.9" r="4.5" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="828.9" cy="340.7" r="13.5" fill="#8e2b14" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="825.5" cy="345.2" r="4.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="840.0" cy="348.1" r="14.0" fill="#912d15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="837.1" cy="353.2" r="4.8" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="851.9" cy="354.0" r="14.4" fill="#942f15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="849.6" cy="359.6" r="4.9" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="864.5" cy="358.3" r="14.9" fill="#973215" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="862.8" cy="364.3" r="5.1" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="877.5" cy="361.0" r="15.4" fill="#9a3415" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="876.6" cy="367.4" r="5.2" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="890.8" cy="362.0" r="15.9" fill="#9d3615" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="890.7" cy="368.7" r="5.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="904.1" cy="361.3" r="16.4" fill="#a13815" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="904.9" cy="368.1" r="5.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="917.2" cy="358.9" r="16.9" fill="#a43a15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="918.9" cy="365.8" r="5.7" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="929.8" cy="354.9" r="17.4" fill="#a73c15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="932.5" cy="361.7" r="5.9" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="941.9" cy="349.3" r="17.9" fill="#aa3e15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="945.5" cy="355.8" r="6.1" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="953.1" cy="342.1" r="18.4" fill="#ae4115" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="957.7" cy="348.4" r="6.3" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="963.4" cy="333.6" r="18.9" fill="#b14315" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="968.8" cy="339.4" r="6.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="972.4" cy="323.9" r="19.5" fill="#b54515" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="978.8" cy="329.1" r="6.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="980.2" cy="313.1" r="20.0" fill="#b84715" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="987.3" cy="317.6" r="6.8" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="986.5" cy="301.4" r="20.6" fill="#bb4a15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="994.4" cy="305.0" r="7.0" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="991.3" cy="289.0" r="21.2" fill="#bf4c15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="999.8" cy="291.6" r="7.2" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="994.4" cy="276.1" r="21.7" fill="#c24e15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="1003.4" cy="277.6" r="7.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="995.9" cy="262.8" r="22.3" fill="#c65115" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="1005.2" cy="263.3" r="7.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="995.7" cy="249.5" r="22.9" fill="#c95315" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="1005.2" cy="248.8" r="7.8" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="993.7" cy="236.4" r="23.5" fill="#cd5515" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="1003.4" cy="234.3" r="8.0" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="990.1" cy="223.6" r="24.1" fill="#d05815" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="999.7" cy="220.2" r="8.2" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="984.9" cy="211.3" r="24.7" fill="#d45a15" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="994.2" cy="206.7" r="8.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="978.2" cy="199.8" r="25.3" fill="#d85d16" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="987.0" cy="193.9" r="8.6" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="970.1" cy="189.3" r="25.9" fill="#db5f16" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="978.3" cy="182.1" r="8.8" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="960.7" cy="179.9" r="26.5" fill="#df6216" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="968.0" cy="171.5" r="9.0" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="950.2" cy="171.8" r="27.1" fill="#e36416" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="956.5" cy="162.3" r="9.2" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="938.7" cy="165.1" r="27.8" fill="#e66616" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="943.9" cy="154.6" r="9.4" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="926.4" cy="159.9" r="28.4" fill="#ea6916" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="930.4" cy="148.6" r="9.7" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="913.6" cy="156.3" r="29.0" fill="#ee6b16" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="916.2" cy="144.3" r="9.9" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="900.5" cy="154.3" r="29.7" fill="#f16e16" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="901.5" cy="141.9" r="10.1" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="887.2" cy="154.1" r="30.3" fill="#f57016" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="886.6" cy="141.4" r="10.3" fill="#ffffff" fill-opacity="0.10"/>
+    <circle cx="873.9" cy="155.6" r="31.0" fill="#f97316" stroke="#2a0f0f" stroke-width="1.5"/>
+    <circle cx="871.7" cy="142.8" r="10.5" fill="#ffffff" fill-opacity="0.10"/>
+    <g transform="translate(873.9,155.6) rotate(170.0)">
+      <circle cx="0" cy="0" r="31" fill="#f97316" stroke="#2a0f0f" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="23" fill="url(#maw)"/>
+      <path d="M20.5 4.6 L10.5 0.0 L20.5 -4.6 z" fill="#fca5a5"/>
+      <path d="M14.8 15.0 L8.8 5.7 L19.7 7.2 z" fill="#fca5a5"/>
+      <path d="M4.3 20.6 L4.4 9.6 L12.7 16.7 z" fill="#fca5a5"/>
+      <path d="M-7.5 19.6 L-1.5 10.4 L1.6 20.9 z" fill="#fca5a5"/>
+      <path d="M-16.9 12.5 L-6.9 7.9 L-9.9 18.5 z" fill="#fca5a5"/>
+      <path d="M-21.0 1.4 L-10.1 3.0 L-18.4 10.2 z" fill="#fca5a5"/>
+      <path d="M-18.4 -10.2 L-10.1 -3.0 L-21.0 -1.4 z" fill="#fca5a5"/>
+      <path d="M-9.9 -18.5 L-6.9 -7.9 L-16.9 -12.5 z" fill="#fca5a5"/>
+      <path d="M1.6 -20.9 L-1.5 -10.4 L-7.5 -19.6 z" fill="#fca5a5"/>
+      <path d="M12.7 -16.7 L4.4 -9.6 L4.3 -20.6 z" fill="#fca5a5"/>
+      <path d="M19.7 -7.2 L8.8 -5.7 L14.8 -15.0 z" fill="#fca5a5"/>
+      <circle cx="0" cy="0" r="8" fill="#000000"/>
+    </g>
+  </g>
+
+  <!-- What it eats, and what it becomes -->
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif" text-anchor="middle">
+    <rect x="849" y="225" width="86" height="66" rx="10" fill="#0b0f16" stroke="#ef4444" stroke-width="1.8"/>
+    <text x="892" y="256" font-size="17" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">npm</text>
+    <text x="892" y="276" font-size="12" fill="#6e7a8a">token</text>
+    <text x="892" y="416" font-size="17" font-weight="600" letter-spacing="2" fill="#7d8797">STEAL &#183; PUBLISH &#183; REPEAT</text>
+  </g>
+</svg>

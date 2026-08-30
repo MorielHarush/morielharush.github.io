@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="i0Regret: OpenTelemetry-Go executes ioreg by name instead of by absolute path, so PATH resolution reaches an attacker-planted binary in the working directory before the real system utility, giving code execution on CI runners.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.26"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="895" cy="290" rx="300" ry="200" fill="url(#glow)"/>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#f97316"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#fb923c">CVE-2026-24051 &#183; HIGH</text>
+
+    <text x="80" y="220" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">A MISSING</text>
+    <text x="80" y="292" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">SLASH</text>
+
+    <rect x="80" y="326" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="374" font-size="27" font-weight="500" fill="#8b949e">The SDK ran whatever PATH found first</text>
+    <text x="80" y="412" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">OpenTelemetry-Go &lt; v1.40.0</text>
+  </g>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <text x="652" y="106" font-size="16" font-weight="700" letter-spacing="1.8" fill="#8b949e">sdk/resource/host_id.go</text>
+
+    <rect x="650" y="118" width="490" height="62" rx="12" fill="#131a24" stroke="#ef4444" stroke-width="1.8"/>
+    <text x="674" y="156" font-size="21" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">execCommand(&quot;ioreg&quot;)</text>
+    <text x="1116" y="156" font-size="15" text-anchor="end" fill="#6e7a8a">no leading /</text>
+
+    <line x1="895" y1="188" x2="895" y2="222" stroke="#ef4444" stroke-width="4" marker-end="url(#ar)"/>
+
+    <text x="652" y="248" font-size="15" font-weight="700" letter-spacing="1.8" fill="#8b949e">PATH RESOLUTION ORDER</text>
+
+    <!-- First hit wins, and on a CI runner that is the attacker's file -->
+    <rect x="650" y="260" width="490" height="56" rx="10" fill="#0b0f16" stroke="#ef4444" stroke-width="2"/>
+    <circle cx="678" cy="288" r="13" fill="#ef4444" fill-opacity="0.2"/>
+    <text x="678" y="294" font-size="15" font-weight="700" text-anchor="middle" fill="#f87171">1</text>
+    <text x="704" y="294" font-size="19" font-family="'JetBrains Mono','Consolas',monospace" fill="#f87171">./ioreg</text>
+    <text x="1116" y="294" font-size="15" text-anchor="end" fill="#f87171">attacker&#8217;s binary</text>
+
+    <rect x="650" y="324" width="490" height="56" rx="10" fill="#131a24" stroke="#2dd4bf" stroke-width="1.6" stroke-opacity="0.55"/>
+    <circle cx="678" cy="352" r="13" fill="#2dd4bf" fill-opacity="0.15"/>
+    <text x="678" y="358" font-size="15" font-weight="700" text-anchor="middle" fill="#2dd4bf">2</text>
+    <text x="704" y="358" font-size="19" font-family="'JetBrains Mono','Consolas',monospace" fill="#8b949e">/usr/sbin/ioreg</text>
+    <text x="1116" y="358" font-size="15" text-anchor="end" fill="#6e7a8a">never reached</text>
+
+    <text x="652" y="412" font-size="18" fill="#7d8797">Code execution on the CI runner &#183; secrets exfiltrated</text>
+  </g>
+</svg>

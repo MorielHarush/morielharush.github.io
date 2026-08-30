@@ -7,9 +7,8 @@ severity: "High"
 cvss: "8.8"
 affected: "OpenTelemetry-Go SDK < v1.40.0"
 vendor: "OpenTelemetry"
+image: "/assets/images/i0regret-path-hijack-cover.svg"
 ---
-<img width="1024" height="559" alt="image" src="/assets/images/i0regret-opentelemetry-go-path-hijacking-1.png" />
-
 In the cloud-native ecosystem, we rely on SDKs as the "truth" for telemetry and observability. We assume these libraries are passive observers, but when a core component like OpenTelemetry-Go trusts its environment too much, it stops being a sensor and starts being an entry point.
 
 ## Auditing the Observers

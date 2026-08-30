@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500"
+     role="img" aria-label="The repo trust trap: the core product is scanned, signed and covered by an SBOM, while the tools, CI helpers and example scripts beside it are never audited - and a single pull request runs them on a CI runner holding deploy secrets.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#171d29"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.28"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="500" fill="url(#bg)"/>
+  <rect width="1200" height="500" fill="url(#grid)"/>
+  <ellipse cx="1010" cy="270" rx="270" ry="200" fill="url(#glow)"/>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <rect x="80" y="112" width="10" height="10" fill="#ef4444"/>
+    <text x="104" y="122" font-size="20" font-weight="700" letter-spacing="3.5" fill="#f87171">SUPPLY CHAIN RESEARCH</text>
+
+    <text x="80" y="220" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">THE REPO</text>
+    <text x="80" y="292" font-size="66" font-weight="800" letter-spacing="-1" fill="#e6edf3">TRUST TRAP</text>
+
+    <rect x="80" y="326" width="72" height="4" rx="2" fill="#ef4444"/>
+
+    <text x="80" y="374" font-size="27" font-weight="500" fill="#8b949e">Guarded front door. Side door wide open.</text>
+    <text x="80" y="412" font-size="21" fill="#6e7a8a" font-family="'JetBrains Mono','Consolas',monospace">Envoy &#183; CASL &#8212; developer tooling</text>
+  </g>
+
+  <g font-family="'Inter','Segoe UI',Helvetica,Arial,sans-serif">
+    <text x="652" y="106" font-size="15" font-weight="700" letter-spacing="1.8" fill="#8b949e">ONE REPOSITORY, TWO STANDARDS</text>
+
+    <rect x="650" y="118" width="490" height="196" rx="16" fill="#131a24" stroke="#30363d" stroke-width="1.6"/>
+
+    <!-- Everything the industry hardened -->
+    <rect x="672" y="142" width="214" height="148" rx="10" fill="#0f1620" stroke="#2dd4bf" stroke-width="2"/>
+    <g transform="translate(769,176)">
+      <rect x="-16" y="6" width="32" height="24" rx="4" fill="none" stroke="#2dd4bf" stroke-width="2.4"/>
+      <path d="M-9 6 v-7 a9 9 0 0 1 18 0 v7" fill="none" stroke="#2dd4bf" stroke-width="2.4"/>
+    </g>
+    <text x="779" y="238" font-size="15" font-weight="700" letter-spacing="1.2" text-anchor="middle" fill="#2dd4bf">CORE PRODUCT</text>
+    <text x="779" y="262" font-size="13" text-anchor="middle" fill="#6e7a8a">SBOM &#183; signed &#183; scanned</text>
+
+    <!-- ...and everything beside it that nobody checks -->
+    <rect x="904" y="142" width="214" height="148" rx="10" fill="#0b0f16" stroke="#ef4444" stroke-width="2" stroke-dasharray="9 7"/>
+    <g transform="translate(1011,176)">
+      <rect x="-16" y="6" width="32" height="24" rx="4" fill="none" stroke="#ef4444" stroke-width="2.4"/>
+      <path d="M-9 6 v-7 a9 9 0 0 1 18 0" fill="none" stroke="#ef4444" stroke-width="2.4"/>
+    </g>
+    <text x="1011" y="238" font-size="15" font-weight="700" letter-spacing="1.2" text-anchor="middle" fill="#f87171">tools/ ci/ examples/</text>
+    <text x="1011" y="262" font-size="13" text-anchor="middle" fill="#6e7a8a">never audited</text>
+
+    <!-- A pull request walks straight in -->
+    <line x1="1011" y1="86" x2="1011" y2="134" stroke="#ef4444" stroke-width="4" marker-end="url(#ar)"/>
+    <text x="1030" y="104" font-size="15" fill="#f87171">one PR</text>
+
+    <rect x="650" y="334" width="490" height="60" rx="12" fill="#0b0f16" stroke="#ef4444" stroke-width="2"/>
+    <text x="674" y="371" font-size="18" fill="#f87171">Code execution on CI &#183; deploy secrets</text>
+  </g>
+</svg>
